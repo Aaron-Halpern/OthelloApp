@@ -1,0 +1,512 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <android.widget.Button
+            android:id="@+id/A1"
+            style="@style/button_format"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toRightOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/A2"
+            app:layout_constraintBottom_toTopOf="@id/B1" />
+
+        <android.widget.Button
+            android:id="@+id/A2"
+            style="@style/button_format"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/A1"
+            app:layout_constraintRight_toLeftOf="@id/A3"
+            app:layout_constraintBottom_toTopOf="@id/B2" />
+
+        <android.widget.Button
+            android:id="@+id/A3"
+            style="@style/button_format"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/A2"
+            app:layout_constraintRight_toLeftOf="@id/A4"
+            app:layout_constraintBottom_toTopOf="@id/B3" />
+
+        <android.widget.Button
+            android:id="@+id/A4"
+            style="@style/button_format"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/A3"
+            app:layout_constraintRight_toLeftOf="@id/A5"
+            app:layout_constraintBottom_toTopOf="@id/B4" />
+
+        <android.widget.Button
+            android:id="@+id/A5"
+            style="@style/button_format"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/A4"
+            app:layout_constraintRight_toLeftOf="@id/A6"
+            app:layout_constraintBottom_toTopOf="@id/B5" />
+
+        <android.widget.Button
+            android:id="@+id/A6"
+            style="@style/button_format"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/A5"
+            app:layout_constraintRight_toLeftOf="@id/A7"
+            app:layout_constraintBottom_toTopOf="@id/B6" />
+
+        <android.widget.Button
+            android:id="@+id/A7"
+            style="@style/button_format"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/A6"
+            app:layout_constraintRight_toLeftOf="@id/A8"
+            app:layout_constraintBottom_toTopOf="@id/B7" />
+
+        <android.widget.Button
+            android:id="@+id/A8"
+            style="@style/button_format"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/A7"
+            app:layout_constraintRight_toLeftOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/B8" />
+
+        <android.widget.Button
+            android:id="@+id/B1"
+            style="@style/button_format"
+            app:layout_constraintTop_toBottomOf="@id/A1"
+            app:layout_constraintLeft_toRightOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/B2"
+            app:layout_constraintBottom_toTopOf="@id/C1" />
+
+        <android.widget.Button
+            android:id="@+id/B2"
+            style="@style/button_format"
+            app:layout_constraintTop_toBottomOf="@id/A2"
+            app:layout_constraintLeft_toRightOf="@id/B1"
+            app:layout_constraintRight_toLeftOf="@id/B3"
+            app:layout_constraintBottom_toTopOf="@id/C2" />
+
+        <android.widget.Button
+            android:id="@+id/B3"
+            style="@style/button_format"
+            app:layout_constraintTop_toBottomOf="@id/A3"
+            app:layout_constraintLeft_toRightOf="@id/B2"
+            app:layout_constraintRight_toLeftOf="@id/B4"
+            app:layout_constraintBottom_toTopOf="@id/C3" />
+
+        <android.widget.Button
+            android:id="@+id/B4"
+            style="@style/button_format"
+            app:layout_constraintTop_toBottomOf="@id/A4"
+            app:layout_constraintLeft_toRightOf="@id/B3"
+            app:layout_constraintRight_toLeftOf="@id/B5"
+            app:layout_constraintBottom_toTopOf="@id/C4" />
+
+        <android.widget.Button
+            android:id="@+id/B5"
+            style="@style/button_format"
+            app:layout_constraintTop_toBottomOf="@id/A5"
+            app:layout_constraintLeft_toRightOf="@id/B4"
+            app:layout_constraintRight_toLeftOf="@id/B6"
+            app:layout_constraintBottom_toTopOf="@id/C5" />
+
+        <android.widget.Button
+            android:id="@+id/B6"
+            style="@style/button_format"
+            app:layout_constraintTop_toBottomOf="@id/A6"
+            app:layout_constraintLeft_toRightOf="@id/B5"
+            app:layout_constraintRight_toLeftOf="@id/B7"
+            app:layout_constraintBottom_toTopOf="@id/C6" />
+
+        <android.widget.Button
+            android:id="@+id/B7"
+            style="@style/button_format"
+            app:layout_constraintTop_toBottomOf="@id/A7"
+            app:layout_constraintLeft_toRightOf="@id/B6"
+            app:layout_constraintRight_toLeftOf="@id/B8"
+            app:layout_constraintBottom_toTopOf="@id/C7" />
+
+        <android.widget.Button
+            android:id="@+id/B8"
+            style="@style/button_format"
+            app:layout_constraintTop_toBottomOf="@id/A8"
+            app:layout_constraintLeft_toRightOf="@id/B7"
+            app:layout_constraintRight_toLeftOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/C8" />
+
+        <android.widget.Button
+            android:id="@+id/C1"
+            style="@style/button_format"
+            app:layout_constraintTop_toBottomOf="@id/B1"
+            app:layout_constraintLeft_toRightOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/C2"
+            app:layout_constraintBottom_toTopOf="@id/D1" />
+
+        <android.widget.Button
+            android:id="@+id/C2"
+            style="@style/button_format"
+            app:layout_constraintTop_toBottomOf="@id/B2"
+            app:layout_constraintLeft_toRightOf="@id/C1"
+            app:layout_constraintRight_toLeftOf="@id/C3"
+            app:layout_constraintBottom_toTopOf="@id/D2" />
+
+        <android.widget.Button
+            android:id="@+id/C3"
+            style="@style/button_format"
+            app:layout_constraintTop_toBottomOf="@id/B3"
+            app:layout_constraintLeft_toRightOf="@id/C2"
+            app:layout_constraintRight_toLeftOf="@id/C4"
+            app:layout_constraintBottom_toTopOf="@id/D3" />
+
+        <android.widget.Button
+            android:id="@+id/C4"
+            style="@style/button_format"
+            app:layout_constraintTop_toBottomOf="@id/B4"
+            app:layout_constraintLeft_toRightOf="@id/C3"
+            app:layout_constraintRight_toLeftOf="@id/C5"
+            app:layout_constraintBottom_toTopOf="@id/D4" />
+
+        <android.widget.Button
+            android:id="@+id/C5"
+            style="@style/button_format"
+            app:layout_constraintTop_toBottomOf="@id/B5"
+            app:layout_constraintLeft_toRightOf="@id/C4"
+            app:layout_constraintRight_toLeftOf="@id/C6"
+            app:layout_constraintBottom_toTopOf="@id/D5" />
+
+        <android.widget.Button
+            android:id="@+id/C6"
+            style="@style/button_format"
+            app:layout_constraintTop_toBottomOf="@id/B6"
+            app:layout_constraintLeft_toRightOf="@id/C5"
+            app:layout_constraintRight_toLeftOf="@id/C7"
+            app:layout_constraintBottom_toTopOf="@id/D6" />
+
+        <android.widget.Button
+            android:id="@+id/C7"
+            style="@style/button_format"
+            app:layout_constraintTop_toBottomOf="@id/B7"
+            app:layout_constraintLeft_toRightOf="@id/C6"
+            app:layout_constraintRight_toLeftOf="@id/C8"
+            app:layout_constraintBottom_toTopOf="@id/D7" />
+
+        <android.widget.Button
+            android:id="@+id/C8"
+            style="@style/button_format"
+            app:layout_constraintTop_toBottomOf="@id/B8"
+            app:layout_constraintLeft_toRightOf="@id/C7"
+            app:layout_constraintRight_toLeftOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/D8" />
+
+        <android.widget.Button
+            android:id="@+id/D1"
+            style="@style/button_format"
+            app:layout_constraintTop_toBottomOf="@id/C1"
+            app:layout_constraintLeft_toRightOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/D2"
+            app:layout_constraintBottom_toTopOf="@id/E1" />
+
+        <android.widget.Button
+            android:id="@+id/D2"
+            style="@style/button_format"
+            app:layout_constraintTop_toBottomOf="@id/C2"
+            app:layout_constraintLeft_toRightOf="@id/D1"
+            app:layout_constraintRight_toLeftOf="@id/D3"
+            app:layout_constraintBottom_toTopOf="@id/E2" />
+
+        <android.widget.Button
+            android:id="@+id/D3"
+            style="@style/button_format"
+            app:layout_constraintTop_toBottomOf="@id/C3"
+            app:layout_constraintLeft_toRightOf="@id/D2"
+            app:layout_constraintRight_toLeftOf="@id/D4"
+            app:layout_constraintBottom_toTopOf="@id/E3" />
+
+        <android.widget.Button
+            android:id="@+id/D4"
+            style="@style/button_format"
+            app:layout_constraintTop_toBottomOf="@id/C4"
+            app:layout_constraintLeft_toRightOf="@id/D3"
+            app:layout_constraintRight_toLeftOf="@id/D5"
+            app:layout_constraintBottom_toTopOf="@id/E4" />
+
+        <android.widget.Button
+            android:id="@+id/D5"
+            style="@style/button_format"
+            app:layout_constraintTop_toBottomOf="@id/C5"
+            app:layout_constraintLeft_toRightOf="@id/D4"
+            app:layout_constraintRight_toLeftOf="@id/D6"
+            app:layout_constraintBottom_toTopOf="@id/E5" />
+
+        <android.widget.Button
+            android:id="@+id/D6"
+            style="@style/button_format"
+            app:layout_constraintTop_toBottomOf="@id/C6"
+            app:layout_constraintLeft_toRightOf="@id/D5"
+            app:layout_constraintRight_toLeftOf="@id/D7"
+            app:layout_constraintBottom_toTopOf="@id/E6" />
+
+        <android.widget.Button
+            android:id="@+id/D7"
+            style="@style/button_format"
+            app:layout_constraintTop_toBottomOf="@id/C7"
+            app:layout_constraintLeft_toRightOf="@id/D6"
+            app:layout_constraintRight_toLeftOf="@id/D8"
+            app:layout_constraintBottom_toTopOf="@id/E7" />
+
+        <android.widget.Button
+            android:id="@+id/D8"
+            style="@style/button_format"
+            app:layout_constraintTop_toBottomOf="@id/C8"
+            app:layout_constraintLeft_toRightOf="@id/D7"
+            app:layout_constraintRight_toLeftOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/E8" />
+
+        <android.widget.Button
+            android:id="@+id/E1"
+            style="@style/button_format"
+            app:layout_constraintTop_toBottomOf="@id/D1"
+            app:layout_constraintLeft_toRightOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/E2"
+            app:layout_constraintBottom_toTopOf="@id/F1" />
+
+        <android.widget.Button
+            android:id="@+id/E2"
+            style="@style/button_format"
+            app:layout_constraintTop_toBottomOf="@id/D2"
+            app:layout_constraintLeft_toRightOf="@id/E1"
+            app:layout_constraintRight_toLeftOf="@id/E3"
+            app:layout_constraintBottom_toTopOf="@id/F2" />
+
+        <android.widget.Button
+            android:id="@+id/E3"
+            style="@style/button_format"
+            app:layout_constraintTop_toBottomOf="@id/D3"
+            app:layout_constraintLeft_toRightOf="@id/E2"
+            app:layout_constraintRight_toLeftOf="@id/E4"
+            app:layout_constraintBottom_toTopOf="@id/F3" />
+
+        <android.widget.Button
+            android:id="@+id/E4"
+            style="@style/button_format"
+            app:layout_constraintTop_toBottomOf="@id/D4"
+            app:layout_constraintLeft_toRightOf="@id/E3"
+            app:layout_constraintRight_toLeftOf="@id/E5"
+            app:layout_constraintBottom_toTopOf="@id/F4" />
+
+        <android.widget.Button
+            android:id="@+id/E5"
+            style="@style/button_format"
+            app:layout_constraintTop_toBottomOf="@id/D5"
+            app:layout_constraintLeft_toRightOf="@id/E4"
+            app:layout_constraintRight_toLeftOf="@id/E6"
+            app:layout_constraintBottom_toTopOf="@id/F5" />
+
+        <android.widget.Button
+            android:id="@+id/E6"
+            style="@style/button_format"
+            app:layout_constraintTop_toBottomOf="@id/D6"
+            app:layout_constraintLeft_toRightOf="@id/E5"
+            app:layout_constraintRight_toLeftOf="@id/E7"
+            app:layout_constraintBottom_toTopOf="@id/F6" />
+
+        <android.widget.Button
+            android:id="@+id/E7"
+            style="@style/button_format"
+            app:layout_constraintTop_toBottomOf="@id/D7"
+            app:layout_constraintLeft_toRightOf="@id/E6"
+            app:layout_constraintRight_toLeftOf="@id/E8"
+            app:layout_constraintBottom_toTopOf="@id/F7" />
+
+        <android.widget.Button
+            android:id="@+id/E8"
+            style="@style/button_format"
+            app:layout_constraintTop_toBottomOf="@id/D8"
+            app:layout_constraintLeft_toRightOf="@id/E7"
+            app:layout_constraintRight_toLeftOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/F8" />
+
+        <android.widget.Button
+            android:id="@+id/F1"
+            style="@style/button_format"
+            app:layout_constraintTop_toBottomOf="@id/E1"
+            app:layout_constraintLeft_toRightOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/F2"
+            app:layout_constraintBottom_toTopOf="@id/G1" />
+
+        <android.widget.Button
+            android:id="@+id/F2"
+            style="@style/button_format"
+            app:layout_constraintTop_toBottomOf="@id/E2"
+            app:layout_constraintLeft_toRightOf="@id/F1"
+            app:layout_constraintRight_toLeftOf="@id/F3"
+            app:layout_constraintBottom_toTopOf="@id/G2" />
+
+        <android.widget.Button
+            android:id="@+id/F3"
+            style="@style/button_format"
+            app:layout_constraintTop_toBottomOf="@id/E3"
+            app:layout_constraintLeft_toRightOf="@id/F2"
+            app:layout_constraintRight_toLeftOf="@id/F4"
+            app:layout_constraintBottom_toTopOf="@id/G3" />
+
+        <android.widget.Button
+            android:id="@+id/F4"
+            style="@style/button_format"
+            app:layout_constraintTop_toBottomOf="@id/E4"
+            app:layout_constraintLeft_toRightOf="@id/F3"
+            app:layout_constraintRight_toLeftOf="@id/F5"
+            app:layout_constraintBottom_toTopOf="@id/G4" />
+
+        <android.widget.Button
+            android:id="@+id/F5"
+            style="@style/button_format"
+            app:layout_constraintTop_toBottomOf="@id/E5"
+            app:layout_constraintLeft_toRightOf="@id/F4"
+            app:layout_constraintRight_toLeftOf="@id/F6"
+            app:layout_constraintBottom_toTopOf="@id/G5" />
+
+        <android.widget.Button
+            android:id="@+id/F6"
+            style="@style/button_format"
+            app:layout_constraintTop_toBottomOf="@id/E6"
+            app:layout_constraintLeft_toRightOf="@id/F5"
+            app:layout_constraintRight_toLeftOf="@id/F7"
+            app:layout_constraintBottom_toTopOf="@id/G6" />
+
+        <android.widget.Button
+            android:id="@+id/F7"
+            style="@style/button_format"
+            app:layout_constraintTop_toBottomOf="@id/E7"
+            app:layout_constraintLeft_toRightOf="@id/F6"
+            app:layout_constraintRight_toLeftOf="@id/F8"
+            app:layout_constraintBottom_toTopOf="@id/G7" />
+
+
+        <android.widget.Button
+            android:id="@+id/F8"
+            style="@style/button_format"
+            app:layout_constraintTop_toBottomOf="@id/E8"
+            app:layout_constraintLeft_toRightOf="@id/F7"
+            app:layout_constraintRight_toLeftOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/G8" />
+
+        <android.widget.Button
+            android:id="@+id/G1"
+            style="@style/button_format"
+            app:layout_constraintTop_toBottomOf="@id/F1"
+            app:layout_constraintLeft_toRightOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/G2"
+            app:layout_constraintBottom_toTopOf="@id/H1" />
+
+        <android.widget.Button
+            android:id="@+id/G2"
+            style="@style/button_format"
+            app:layout_constraintTop_toBottomOf="@id/F2"
+            app:layout_constraintLeft_toRightOf="@id/G1"
+            app:layout_constraintRight_toLeftOf="@id/G3"
+            app:layout_constraintBottom_toTopOf="@id/H2" />
+
+        <android.widget.Button
+            android:id="@+id/G3"
+            style="@style/button_format"
+            app:layout_constraintTop_toBottomOf="@id/F3"
+            app:layout_constraintLeft_toRightOf="@id/G2"
+            app:layout_constraintRight_toLeftOf="@id/G4"
+            app:layout_constraintBottom_toTopOf="@id/H3" />
+
+        <android.widget.Button
+            android:id="@+id/G4"
+            style="@style/button_format"
+            app:layout_constraintTop_toBottomOf="@id/F4"
+            app:layout_constraintLeft_toRightOf="@id/G3"
+            app:layout_constraintRight_toLeftOf="@id/G5"
+            app:layout_constraintBottom_toTopOf="@id/H4" />
+
+        <android.widget.Button
+            android:id="@+id/G5"
+            style="@style/button_format"
+            app:layout_constraintTop_toBottomOf="@id/F5"
+            app:layout_constraintLeft_toRightOf="@id/G4"
+            app:layout_constraintRight_toLeftOf="@id/G6"
+            app:layout_constraintBottom_toTopOf="@id/H5" />
+
+        <android.widget.Button
+            android:id="@+id/G6"
+            style="@style/button_format"
+            app:layout_constraintTop_toBottomOf="@id/F6"
+            app:layout_constraintLeft_toRightOf="@id/G5"
+            app:layout_constraintRight_toLeftOf="@id/G7"
+            app:layout_constraintBottom_toTopOf="@id/H6" />
+
+        <android.widget.Button
+            android:id="@+id/G7"
+            style="@style/button_format"
+            app:layout_constraintTop_toBottomOf="@id/F7"
+            app:layout_constraintLeft_toRightOf="@id/G6"
+            app:layout_constraintRight_toLeftOf="@id/G8"
+            app:layout_constraintBottom_toTopOf="@id/H7" />
+
+        <android.widget.Button
+            android:id="@+id/G8"
+            style="@style/button_format"
+            app:layout_constraintTop_toBottomOf="@id/F8"
+            app:layout_constraintLeft_toRightOf="@id/G7"
+            app:layout_constraintRight_toLeftOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/H8" />
+
+        <android.widget.Button
+            android:id="@+id/H1"
+            style="@style/button_format"
+            app:layout_constraintTop_toBottomOf="@id/G1"
+            app:layout_constraintLeft_toRightOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/H2" />
+
+        <android.widget.Button
+            android:id="@+id/H2"
+            style="@style/button_format"
+            app:layout_constraintTop_toBottomOf="@id/G2"
+            app:layout_constraintLeft_toRightOf="@id/H1"
+            app:layout_constraintRight_toLeftOf="@id/H3" />
+
+        <android.widget.Button
+            android:id="@+id/H3"
+            style="@style/button_format"
+            app:layout_constraintTop_toBottomOf="@id/G3"
+            app:layout_constraintLeft_toRightOf="@id/H2"
+            app:layout_constraintRight_toLeftOf="@id/H4" />
+
+        <android.widget.Button
+            android:id="@+id/H4"
+            style="@style/button_format"
+            app:layout_constraintTop_toBottomOf="@id/G4"
+            app:layout_constraintLeft_toRightOf="@id/H3"
+            app:layout_constraintRight_toLeftOf="@id/H5" />
+
+        <android.widget.Button
+            android:id="@+id/H5"
+            style="@style/button_format"
+            app:layout_constraintTop_toBottomOf="@id/G5"
+            app:layout_constraintLeft_toRightOf="@id/H4"
+            app:layout_constraintRight_toLeftOf="@id/H6" />
+
+        <android.widget.Button
+            android:id="@+id/H6"
+            style="@style/button_format"
+            app:layout_constraintTop_toBottomOf="@id/G6"
+            app:layout_constraintLeft_toRightOf="@id/H5"
+            app:layout_constraintRight_toLeftOf="@id/H7" />
+
+        <android.widget.Button
+            android:id="@+id/H7"
+            style="@style/button_format"
+            app:layout_constraintTop_toBottomOf="@id/G7"
+            app:layout_constraintLeft_toRightOf="@id/H6"
+            app:layout_constraintRight_toLeftOf="@id/H8" />
+
+        <android.widget.Button
+            android:id="@+id/H8"
+            style="@style/button_format"
+            app:layout_constraintTop_toBottomOf="@id/G8"
+            app:layout_constraintLeft_toRightOf="@id/H7"
+            app:layout_constraintRight_toLeftOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
