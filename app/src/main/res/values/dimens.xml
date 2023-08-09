@@ -1,7 +1,7 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
-    <dimen name="layout_upper_margin">56dp</dimen>
-    <dimen name="layout_margin">32dp</dimen>
+    <dimen name="layout_upper_margin">42dp</dimen>
+    <dimen name="layout_margin">26dp</dimen>
     <dimen name="turn_text_size">38sp</dimen>
     <dimen name="score_text_size">30sp</dimen>
 </resources>
