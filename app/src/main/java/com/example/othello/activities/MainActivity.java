@@ -5,6 +5,7 @@ import static com.example.othello.lib.Utils.showInfoDialog;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import com.example.othello.R;
@@ -23,6 +24,7 @@ import com.example.othello.databinding.ActivityMainBinding;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageButton;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,7 +34,9 @@ public class MainActivity extends AppCompatActivity {
 
     private final String mKEY_GAME = "GAME";
     private String mKEY_AUTO_SAVE;
+    private final Drawable WHITE_PIECE = getDrawable(R.drawable.white_piece);
 
+    private final Drawable BLACK_PIECE = getDrawable(R.drawable.black_piece);
     private OthelloGame mGame;
 
 
@@ -47,6 +51,41 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         setupButtonListeners();
+        setupFAB();
+
+        chooseColor();//TODO: make dialog at begining of game to get color
+
+
+
+
+        startNewGame();
+
+
+    }
+
+
+    private void updateBoardButtons(){
+
+        //use reg for loops, need to compare the index against a parallel array of ids
+        for (int row = 0;row<=7;row++){
+            for (int col = 0;col<=7;col++){
+                if (mGame.mBoard[row][col]==1){
+                    ImageButton space = findViewById(mGame.mSpaces[row][col]);
+                    space.setImageDrawable(WHITE_PIECE);
+                } else if (mGame.mBoard[row][col]==2) {
+                    ImageButton space = findViewById(mGame.mSpaces[row][col]);
+                    space.setImageDrawable(BLACK_PIECE);
+                }
+            }
+        }
+    }
+
+
+    private void startNewGame() {
+        mGame=new OthelloGame();
+    }
+
+    private void setupFAB() {
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,6 +95,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void chooseColor() {
+    //TODO: create method to let user choose color (dialog?)
+        //get selection from user, either 1 or 2
+//        mGame.SetUserColorSelection(turnSelection);
+    }
+
+
 
     private void setupButtonListeners() {
 
@@ -158,8 +205,45 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void playerSelection(String x, int y){
+    //gets 2 values based on button pressed
+    private void playerSelection(String row, int col){
+        int y= col-1;
+        int x;
+        switch (row){
+            case "A":
+                x=0;
+                break;
+            case "B":
+                x=1;
+                break;
+            case "C":
+                x=2;
+                break;
+            case "D":
+                x=3;
+                break;
+            case "E":
+                x=4;
+                break;
+            case "F":
+                x=5;
+                break;
+            case "G":
+                x=6;
+                break;
+            case "H":
+                x=7;
+                break;
+            default: x=-1;
+        }
+        //now we have x and y values for the player's selection
+
+
         //TODO: put code here to process player move
+        //need to make move, get results, update mBoard array
+
+        //change the images on the buttons after processing the move
+        updateBoardButtons();
     }
     private void showRules() {
         showInfoDialog(MainActivity.this, "Othello Rules",
