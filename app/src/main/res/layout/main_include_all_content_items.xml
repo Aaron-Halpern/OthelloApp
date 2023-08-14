@@ -11,7 +11,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/layout_margin"
-        android:layout_marginBottom="@dimen/layout_margin"/>
+        android:layout_marginBottom="@dimen/layout_margin"
+        android:id="@+id/main_include_game_board"/>
 
     <include layout="@layout/main_include_score_info" />
 
