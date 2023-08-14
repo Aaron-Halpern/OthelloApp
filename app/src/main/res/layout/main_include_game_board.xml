@@ -222,7 +222,7 @@
 
         <android.widget.Button
             android:id="@+id/D4"
-            style="@style/button_format"
+            style="@style/white_piece_placed"
             app:layout_constraintTop_toBottomOf="@id/C4"
             app:layout_constraintLeft_toRightOf="@id/D3"
             app:layout_constraintRight_toLeftOf="@id/D5"
@@ -230,7 +230,7 @@
 
         <android.widget.Button
             android:id="@+id/D5"
-            style="@style/button_format"
+            style="@style/black_piece_placed"
             app:layout_constraintTop_toBottomOf="@id/C5"
             app:layout_constraintLeft_toRightOf="@id/D4"
             app:layout_constraintRight_toLeftOf="@id/D6"
@@ -286,7 +286,7 @@
 
         <android.widget.Button
             android:id="@+id/E4"
-            style="@style/button_format"
+            style="@style/black_piece_placed"
             app:layout_constraintTop_toBottomOf="@id/D4"
             app:layout_constraintLeft_toRightOf="@id/E3"
             app:layout_constraintRight_toLeftOf="@id/E5"
@@ -294,7 +294,7 @@
 
         <android.widget.Button
             android:id="@+id/E5"
-            style="@style/button_format"
+            style="@style/white_piece_placed"
             app:layout_constraintTop_toBottomOf="@id/D5"
             app:layout_constraintLeft_toRightOf="@id/E4"
             app:layout_constraintRight_toLeftOf="@id/E6"
