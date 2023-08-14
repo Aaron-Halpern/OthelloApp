@@ -1,13 +1,21 @@
 package com.example.othello.activities;
 
+import static androidx.preference.PreferenceManager.getDefaultSharedPreferences;
 import static com.example.othello.lib.Utils.showInfoDialog;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.example.othello.R;
+import com.example.othello.models.OthelloGame;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
 
@@ -20,6 +28,14 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     private Snackbar mSnackBar;
+    private boolean mUseAutoSave;
+
+    private final String mKEY_GAME = "GAME";
+    private String mKEY_AUTO_SAVE;
+
+    private OthelloGame mGame;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +44,8 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        setSupportActionBar(binding.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
         if (itemId == R.id.action_settings) {
-            //showSettings();
+            showSettings();
             return true;
         }  else if (itemId == R.id.action_rules) {
             showRules();
@@ -75,6 +92,18 @@ public class MainActivity extends AppCompatActivity {
                         "end is the winner!");
     }
 
+    private void restoreOrSetFromPreferences_AllAppAndGameSettings() {
+        SharedPreferences sp = getDefaultSharedPreferences(this);
+        //mUseAutoSave = sp.getBoolean(mKEY_AUTO_SAVE, true);
+    }
+    private void showSettings() {
+        Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+        settingsLauncher.launch(intent);
+    }
+
+    ActivityResultLauncher<Intent> settingsLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> restoreOrSetFromPreferences_AllAppAndGameSettings());
 
 
 }

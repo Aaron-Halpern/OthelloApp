@@ -9,4 +9,11 @@
     <string name="comp_score">Computer\'s score: </string>
 
     <string name="rules">Othello Rules</string>
+
+    <string name="auto_save_key">Auto-Save</string>
+    <string name="auto_save_off">On exit, the game in progress will not be saved</string>
+    <string name="auto_save_on">On exit, the game in progress will be saved</string>
+    <string name="auto_save_title">Auto-Save Game on Exit</string>
+    <string name="game_header">Game</string>
+
 </resources>
