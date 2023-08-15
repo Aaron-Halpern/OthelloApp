@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private final Drawable WHITE_PIECE = getDrawable(R.drawable.white_piece);
 
     private final Drawable BLACK_PIECE = getDrawable(R.drawable.black_piece);
+    private final Drawable BLANK_SPACE = getDrawable(R.drawable.box);
     private OthelloGame mGame;
 
 
@@ -75,6 +76,9 @@ public class MainActivity extends AppCompatActivity {
                 } else if (mGame.mBoard[row][col]==2) {
                     ImageButton space = findViewById(mGame.mSpaces[row][col]);
                     space.setImageDrawable(BLACK_PIECE);
+                } else if (mGame.mBoard[row][col]==0) {
+                    ImageButton space = findViewById(mGame.mSpaces[row][col]);
+                    space.setImageDrawable(BLANK_SPACE);
                 }
             }
         }
