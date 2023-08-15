@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //setupButtonListeners();
+        setupButtonListeners();
         setupFAB();
 
         WHITE_PIECE = getDrawable(R.drawable.white_piece);
@@ -65,8 +65,8 @@ public class MainActivity extends AppCompatActivity {
         turnBar = findViewById(R.id.turn);
         userScore = findViewById(R.id.userScore);
         compScore = findViewById(R.id.compScore);
-        chooseColor(); //delete this one once startNewGame() works
-        //startNewGame();
+//        chooseColor(); //delete this one once startNewGame() works
+        startNewGame();
     }
 
 
@@ -76,14 +76,14 @@ public class MainActivity extends AppCompatActivity {
         for (int row = 0;row<=7;row++){
             for (int col = 0;col<=7;col++){
                 if (board[row][col]==1){
-                    //ImageButton space = findViewById(mGame.mSpaces[row][col]); //see if this code works
-                    //space.setImageDrawable(WHITE_PIECE);
+                    ImageButton space = findViewById(mGame2.spaces[row][col]); //see if this code works
+                    space.setImageDrawable(WHITE_PIECE);
                 } else if (board[row][col]==2) {
-                    //ImageButton space = findViewById(mGame.mSpaces[row][col]);
-                    //space.setImageDrawable(BLACK_PIECE);
+                    ImageButton space = findViewById(mGame2.spaces[row][col]);
+                    space.setImageDrawable(BLACK_PIECE);
                 } else if (board[row][col]==0) {
-                    //ImageButton space = findViewById(mGame.mSpaces[row][col]);
-                    //space.setImageDrawable(BLANK_SPACE);
+                    ImageButton space = findViewById(mGame2.spaces[row][col]);
+                    space.setImageDrawable(BLANK_SPACE);
                 }
             }
         }
