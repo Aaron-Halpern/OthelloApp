@@ -4,6 +4,7 @@
         android:drawable="@drawable/box"
         android:gravity="center"
         />
+
     <item
         android:drawable="@drawable/black_circle"
         android:gravity="center"

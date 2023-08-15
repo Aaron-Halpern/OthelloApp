@@ -3,6 +3,7 @@ package com.example.othello.activities;
 import static androidx.preference.PreferenceManager.getDefaultSharedPreferences;
 import static com.example.othello.lib.Utils.showInfoDialog;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
@@ -10,11 +11,12 @@ import android.os.Bundle;
 
 import com.example.othello.R;
 import com.example.othello.models.OthelloGame;
+import com.example.othello.models.OthelloConfig;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -25,6 +27,8 @@ import com.example.othello.databinding.ActivityMainBinding;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,11 +38,11 @@ public class MainActivity extends AppCompatActivity {
 
     private final String mKEY_GAME = "GAME";
     private String mKEY_AUTO_SAVE;
-    private final Drawable WHITE_PIECE = getDrawable(R.drawable.white_piece);
+    private Drawable WHITE_PIECE, BLACK_PIECE, BLANK_SPACE;
 
-    private final Drawable BLACK_PIECE = getDrawable(R.drawable.black_piece);
-    private final Drawable BLANK_SPACE = getDrawable(R.drawable.box);
-    private OthelloGame mGame;
+    //private OthelloGame mGame;
+    private OthelloConfig mGame2;
+    private TextView turnBar, userScore, compScore;
 
 
 
@@ -51,49 +55,53 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        setupButtonListeners();
+        //setupButtonListeners();
         setupFAB();
 
+        WHITE_PIECE = getDrawable(R.drawable.white_piece);
+        BLACK_PIECE = getDrawable(R.drawable.black_piece);
+        BLANK_SPACE = getDrawable(R.drawable.box);
 
-
-
-
-
-        startNewGame();
-
-
+        turnBar = findViewById(R.id.turn);
+        userScore = findViewById(R.id.userScore);
+        compScore = findViewById(R.id.compScore);
+        chooseColor(); //delete this one once startNewGame() works
+        //startNewGame();
     }
 
 
     private void updateBoardButtons(){
-
+        int [][] board = mGame2.getBoard();
         //use reg for loops, need to compare the index against a parallel array of ids
         for (int row = 0;row<=7;row++){
             for (int col = 0;col<=7;col++){
-                if (mGame.mBoard[row][col]==1){
-                    ImageButton space = findViewById(mGame.mSpaces[row][col]);
-                    space.setImageDrawable(WHITE_PIECE);
-                } else if (mGame.mBoard[row][col]==2) {
-                    ImageButton space = findViewById(mGame.mSpaces[row][col]);
-                    space.setImageDrawable(BLACK_PIECE);
-                } else if (mGame.mBoard[row][col]==0) {
-                    ImageButton space = findViewById(mGame.mSpaces[row][col]);
-                    space.setImageDrawable(BLANK_SPACE);
+                if (board[row][col]==1){
+                    //ImageButton space = findViewById(mGame.mSpaces[row][col]); //see if this code works
+                    //space.setImageDrawable(WHITE_PIECE);
+                } else if (board[row][col]==2) {
+                    //ImageButton space = findViewById(mGame.mSpaces[row][col]);
+                    //space.setImageDrawable(BLACK_PIECE);
+                } else if (board[row][col]==0) {
+                    //ImageButton space = findViewById(mGame.mSpaces[row][col]);
+                    //space.setImageDrawable(BLANK_SPACE);
                 }
             }
         }
-        //TODO: method to update scores
+        userScore.setText("Your score: " + mGame2.getScore()[0]);
+        compScore.setText("Computer score: " + mGame2.getScore()[1]);
     }
 
 
     private void startNewGame() {
-        mGame=new OthelloGame();
-        chooseColor();//TODO: make dialog at begining of game to get color
+        mGame2 = new OthelloConfig();
+        chooseColor();
         updateBoardButtons();
-        //TODO: method: if comp turn, do comp move, else: nothing
-    }
 
-    //TODO: method to run player turn, end with automatically doing comp turn
+        if(mGame2.getCompTurn()==2) {
+            //call setComputerTurn();
+            compMove();
+        }
+    }
 
     private void setupFAB() {
         binding.fab.setOnClickListener(new View.OnClickListener() {
@@ -107,86 +115,96 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void chooseColor() {
-    //TODO: create method to let user choose color (dialog?)
-        //get selection from user, either 1 or 2
-//        mGame.SetUserColorSelection(turnSelection);
+        final String[] colors = {"White", "Black"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Select your color:");
+        builder.setItems(colors, new DialogInterface.OnClickListener() {
+            @Override
+        public void onClick(DialogInterface dialog, int color) {
+            if ("White".equals(colors[color])) {
+                mGame2.setTurn(1);
+            } else if ("Black".equals(colors[color])) {
+                mGame2.setTurn(2);
+            }
+        }
+        });
+        builder.show();
     }
-
 
 
     private void setupButtonListeners() {
 
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.A1.setOnClickListener(view -> playerSelection("A",1));
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.A2.setOnClickListener(view -> playerSelection("A",2));
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.A3.setOnClickListener(view -> playerSelection("A",3));
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.A4.setOnClickListener(view -> playerSelection("A",4));
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.A5.setOnClickListener(view -> playerSelection("A",5));
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.A6.setOnClickListener(view -> playerSelection("A",6));
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.A7.setOnClickListener(view -> playerSelection("A",7));
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.A8.setOnClickListener(view -> playerSelection("A",8));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.A1.setOnClickListener(view -> userAndCompMoves("A",1));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.A2.setOnClickListener(view -> userAndCompMoves("A",2));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.A3.setOnClickListener(view -> userAndCompMoves("A",3));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.A4.setOnClickListener(view -> userAndCompMoves("A",4));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.A5.setOnClickListener(view -> userAndCompMoves("A",5));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.A6.setOnClickListener(view -> userAndCompMoves("A",6));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.A7.setOnClickListener(view -> userAndCompMoves("A",7));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.A8.setOnClickListener(view -> userAndCompMoves("A",8));
 
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.B1.setOnClickListener(view -> playerSelection("B",1));
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.B2.setOnClickListener(view -> playerSelection("B",2));
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.B3.setOnClickListener(view -> playerSelection("B",3));
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.B4.setOnClickListener(view -> playerSelection("B",4));
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.B5.setOnClickListener(view -> playerSelection("B",5));
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.B6.setOnClickListener(view -> playerSelection("B",6));
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.B7.setOnClickListener(view -> playerSelection("B",7));
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.B8.setOnClickListener(view -> playerSelection("B",8));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.B1.setOnClickListener(view -> userAndCompMoves("B",1));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.B2.setOnClickListener(view -> userAndCompMoves("B",2));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.B3.setOnClickListener(view -> userAndCompMoves("B",3));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.B4.setOnClickListener(view -> userAndCompMoves("B",4));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.B5.setOnClickListener(view -> userAndCompMoves("B",5));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.B6.setOnClickListener(view -> userAndCompMoves("B",6));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.B7.setOnClickListener(view -> userAndCompMoves("B",7));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.B8.setOnClickListener(view -> userAndCompMoves("B",8));
 
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.C1.setOnClickListener(view -> playerSelection("C",1));
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.C2.setOnClickListener(view -> playerSelection("C",2));
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.C3.setOnClickListener(view -> playerSelection("C",3));
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.C4.setOnClickListener(view -> playerSelection("C",4));
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.C5.setOnClickListener(view -> playerSelection("C",5));
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.C6.setOnClickListener(view -> playerSelection("C",6));
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.C7.setOnClickListener(view -> playerSelection("C",7));
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.C8.setOnClickListener(view -> playerSelection("C",8));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.C1.setOnClickListener(view -> userAndCompMoves("C",1));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.C2.setOnClickListener(view -> userAndCompMoves("C",2));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.C3.setOnClickListener(view -> userAndCompMoves("C",3));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.C4.setOnClickListener(view -> userAndCompMoves("C",4));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.C5.setOnClickListener(view -> userAndCompMoves("C",5));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.C6.setOnClickListener(view -> userAndCompMoves("C",6));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.C7.setOnClickListener(view -> userAndCompMoves("C",7));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.C8.setOnClickListener(view -> userAndCompMoves("C",8));
 
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.D1.setOnClickListener(view -> playerSelection("D",1));
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.D2.setOnClickListener(view -> playerSelection("D",2));
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.D3.setOnClickListener(view -> playerSelection("D",3));
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.D4.setOnClickListener(view -> playerSelection("D",4));
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.D5.setOnClickListener(view -> playerSelection("D",5));
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.D6.setOnClickListener(view -> playerSelection("D",6));
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.D7.setOnClickListener(view -> playerSelection("D",7));
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.D8.setOnClickListener(view -> playerSelection("D",8));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.D1.setOnClickListener(view -> userAndCompMoves("D",1));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.D2.setOnClickListener(view -> userAndCompMoves("D",2));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.D3.setOnClickListener(view -> userAndCompMoves("D",3));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.D4.setOnClickListener(view -> userAndCompMoves("D",4));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.D5.setOnClickListener(view -> userAndCompMoves("D",5));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.D6.setOnClickListener(view -> userAndCompMoves("D",6));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.D7.setOnClickListener(view -> userAndCompMoves("D",7));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.D8.setOnClickListener(view -> userAndCompMoves("D",8));
 
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.E1.setOnClickListener(view -> playerSelection("E",1));
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.E2.setOnClickListener(view -> playerSelection("E",2));
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.E3.setOnClickListener(view -> playerSelection("E",3));
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.E4.setOnClickListener(view -> playerSelection("E",4));
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.E5.setOnClickListener(view -> playerSelection("E",5));
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.E6.setOnClickListener(view -> playerSelection("E",6));
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.E7.setOnClickListener(view -> playerSelection("E",7));
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.E8.setOnClickListener(view -> playerSelection("E",8));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.E1.setOnClickListener(view -> userAndCompMoves("E",1));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.E2.setOnClickListener(view -> userAndCompMoves("E",2));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.E3.setOnClickListener(view -> userAndCompMoves("E",3));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.E4.setOnClickListener(view -> userAndCompMoves("E",4));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.E5.setOnClickListener(view -> userAndCompMoves("E",5));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.E6.setOnClickListener(view -> userAndCompMoves("E",6));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.E7.setOnClickListener(view -> userAndCompMoves("E",7));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.E8.setOnClickListener(view -> userAndCompMoves("E",8));
 
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.F1.setOnClickListener(view -> playerSelection("F",1));
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.F2.setOnClickListener(view -> playerSelection("F",2));
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.F3.setOnClickListener(view -> playerSelection("F",3));
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.F4.setOnClickListener(view -> playerSelection("F",4));
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.F5.setOnClickListener(view -> playerSelection("F",5));
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.F6.setOnClickListener(view -> playerSelection("F",6));
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.F7.setOnClickListener(view -> playerSelection("F",7));
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.F8.setOnClickListener(view -> playerSelection("F",8));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.F1.setOnClickListener(view -> userAndCompMoves("F",1));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.F2.setOnClickListener(view -> userAndCompMoves("F",2));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.F3.setOnClickListener(view -> userAndCompMoves("F",3));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.F4.setOnClickListener(view -> userAndCompMoves("F",4));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.F5.setOnClickListener(view -> userAndCompMoves("F",5));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.F6.setOnClickListener(view -> userAndCompMoves("F",6));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.F7.setOnClickListener(view -> userAndCompMoves("F",7));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.F8.setOnClickListener(view -> userAndCompMoves("F",8));
 
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.G1.setOnClickListener(view -> playerSelection("G",1));
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.G2.setOnClickListener(view -> playerSelection("G",2));
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.G3.setOnClickListener(view -> playerSelection("G",3));
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.G4.setOnClickListener(view -> playerSelection("G",4));
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.G5.setOnClickListener(view -> playerSelection("G",5));
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.G6.setOnClickListener(view -> playerSelection("G",6));
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.G7.setOnClickListener(view -> playerSelection("G",7));
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.G8.setOnClickListener(view -> playerSelection("G",8));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.G1.setOnClickListener(view -> userAndCompMoves("G",1));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.G2.setOnClickListener(view -> userAndCompMoves("G",2));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.G3.setOnClickListener(view -> userAndCompMoves("G",3));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.G4.setOnClickListener(view -> userAndCompMoves("G",4));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.G5.setOnClickListener(view -> userAndCompMoves("G",5));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.G6.setOnClickListener(view -> userAndCompMoves("G",6));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.G7.setOnClickListener(view -> userAndCompMoves("G",7));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.G8.setOnClickListener(view -> userAndCompMoves("G",8));
 
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.H1.setOnClickListener(view -> playerSelection("H",1));
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.H2.setOnClickListener(view -> playerSelection("H",2));
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.H3.setOnClickListener(view -> playerSelection("H",3));
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.H4.setOnClickListener(view -> playerSelection("H",4));
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.H5.setOnClickListener(view -> playerSelection("H",5));
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.H6.setOnClickListener(view -> playerSelection("H",6));
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.H7.setOnClickListener(view -> playerSelection("H",7));
-        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.H8.setOnClickListener(view -> playerSelection("H",8));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.H1.setOnClickListener(view -> userAndCompMoves("H",1));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.H2.setOnClickListener(view -> userAndCompMoves("H",2));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.H3.setOnClickListener(view -> userAndCompMoves("H",3));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.H4.setOnClickListener(view -> userAndCompMoves("H",4));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.H5.setOnClickListener(view -> userAndCompMoves("H",5));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.H6.setOnClickListener(view -> userAndCompMoves("H",6));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.H7.setOnClickListener(view -> userAndCompMoves("H",7));
+        binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.H8.setOnClickListener(view -> userAndCompMoves("H",8));
 
 
     }
@@ -216,7 +234,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //gets 2 values based on button pressed
-    private void playerSelection(String row, int col){
+    private void userAndCompMoves(String row, int col){
         int y= col-1;
         int x;
         switch (row){
@@ -246,25 +264,82 @@ public class MainActivity extends AppCompatActivity {
                 break;
             default: x=-1;
         }
-        //now we have x and y values for the player's selection
 
+        mGame2.changeTurn(mGame2.getUserTurn());
 
-        //TODO: put code here to process player move
-        //need to make move, get results, update mBoard array
+        boolean invalidMove = false;
+        while(!invalidMove) {
+            if (mGame2.userMove(x, y)) {
+                invalidMove = true;
+            }
+            else {
+                Toast.makeText(this, "Invalid move!",
+                        Toast.LENGTH_LONG).show();
+            }
+        }
 
-        //change the images on the buttons after processing the move
         updateBoardButtons();
+        checkIfGameOver();
 
+        setTurnBarToCompTurn();
 
-        //TODO: call method to do comp turn, update again
+        compMove();
+
     }
 
-    //TODO: meke methods to switch turn view, call inside each turn
+    private void compMove() {
+        mGame2.changeTurn(mGame2.getCompTurn());
+        mGame2.compMove();
+
+        updateBoardButtons();
+        checkIfGameOver();
+
+        setTurnBarToUserTurn();
+    }
+
+    private void setTurnBarToUserTurn() {
+        turnBar.setText("Your turn!");
+    }
+
+    private void setTurnBarToCompTurn() {
+        turnBar.setText("Computer turn!");
+    }
+
+    private void checkIfGameOver() {
+        if(mGame2.fullBoard() || !mGame2.movesLeft()) {
+            String winner;
+            int[] score = mGame2.getScore();
+            if(score[0] > score[1]) {
+                OthelloGame.userWins++;
+                winner = "User";
+            }
+            else if(score[1] > score[0]) {
+                OthelloGame.compWins++;
+                winner = "Computer";
+            }
+            else {
+                OthelloGame.ties++;
+                winner = "Tie! No one";
+            }
+            final String[] options = {"Yes", "No"};
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(winner + " is the winner!\nWould you like to play again?");
+            builder.setItems(options, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int option) {
+                    if ("Yes".equals(options[option])) {
+                        startNewGame();
+                    }
+                }
+            });
+            builder.show();
+        }
+    }
 
 
-    //TODO method: check for game over, call after EVERY turn,
+
     //if over, update statistics (if time)
-    //if over, give prompt to play again, if yes call startNewGame()
+
     private void showRules() {
         showInfoDialog(MainActivity.this, "Othello Rules",
                 "Welcome to Othello!\n\n" +
