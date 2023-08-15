@@ -39,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
     private final String mKEY_GAME = "GAME";
     private String mKEY_AUTO_SAVE;
     private Drawable WHITE_PIECE, BLACK_PIECE, BLANK_SPACE;
+    private Toast invalidToast;
+
 
     //private OthelloGame mGame;
     private OthelloConfig mGame2;
@@ -58,15 +60,26 @@ public class MainActivity extends AppCompatActivity {
         setupButtonListeners();
         setupFAB();
 
-        WHITE_PIECE = getDrawable(R.drawable.white_piece);
-        BLACK_PIECE = getDrawable(R.drawable.black_piece);
-        BLANK_SPACE = getDrawable(R.drawable.box);
+
+        setupDrawables();
 
         turnBar = findViewById(R.id.turn);
         userScore = findViewById(R.id.userScore);
         compScore = findViewById(R.id.compScore);
 //        chooseColor(); //delete this one once startNewGame() works
         startNewGame();
+        setupToast();
+    }
+
+    private void setupDrawables() {
+        WHITE_PIECE = getDrawable(R.drawable.white_piece);
+        BLACK_PIECE = getDrawable(R.drawable.black_piece);
+        BLANK_SPACE = getDrawable(R.drawable.box);
+    }
+
+    private void setupToast() {
+        invalidToast = Toast.makeText(this, "Invalid move!",
+                Toast.LENGTH_LONG);
     }
 
 
@@ -235,6 +248,7 @@ public class MainActivity extends AppCompatActivity {
 
     //gets 2 values based on button pressed
     private void userAndCompMoves(String row, int col){
+
         int y= col-1;
         int x;
         switch (row){
@@ -268,24 +282,31 @@ public class MainActivity extends AppCompatActivity {
 
 
         boolean invalidMove = false;
-        while(!invalidMove) {
-            if (mGame2.userMove(x, y)) {
-                invalidMove = true;
+        //don't use while loop, just display invalid move, then exit the method, wait for next listener
+//        if (!invalidMove) {
+//
+//        }
+
+            if (!mGame2.userMove(x, y)) {
+//                invalidMove = true;
+                invalidToast.show();
+
             }
             else {
-                Toast.makeText(this, "Invalid move!",
-                        Toast.LENGTH_LONG).show();
-            }
-        }
+//                Toast.makeText(this, "Invalid move!",
+//                        Toast.LENGTH_SHORT).show();
+//                invalidToast.show();
+//            }
+//        }
 
-        updateBoardButtons();
-        checkIfGameOver();
+                updateBoardButtons();
+                checkIfGameOver();
 //        mGame2.changeTurn(mGame2.getUserTurn());
-        mGame2.changeTurn(mGame2.getCompTurn());
-        setTurnBarToCompTurn();
+                mGame2.changeTurn(mGame2.getCompTurn());
+                setTurnBarToCompTurn();
 
-        compMove();
-
+                compMove();
+            }
     }
 
     private void compMove() {
