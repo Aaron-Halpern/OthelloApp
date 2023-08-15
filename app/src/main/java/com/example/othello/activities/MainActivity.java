@@ -251,8 +251,12 @@ public class MainActivity extends AppCompatActivity {
         //change the images on the buttons after processing the move
         updateBoardButtons();
 
+
         //TODO: call method to do comp turn, update again
     }
+
+    //TODO: meke methods to switch turn view, call inside each turn
+
 
     //TODO method: check for game over, call after EVERY turn,
     //if over, update statistics (if time)
