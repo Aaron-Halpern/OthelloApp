@@ -265,7 +265,7 @@ public class MainActivity extends AppCompatActivity {
             default: x=-1;
         }
 
-        mGame2.changeTurn(mGame2.getUserTurn());
+
 
         boolean invalidMove = false;
         while(!invalidMove) {
@@ -280,7 +280,8 @@ public class MainActivity extends AppCompatActivity {
 
         updateBoardButtons();
         checkIfGameOver();
-
+//        mGame2.changeTurn(mGame2.getUserTurn());
+        mGame2.changeTurn(mGame2.getCompTurn());
         setTurnBarToCompTurn();
 
         compMove();
@@ -288,21 +289,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void compMove() {
-        mGame2.changeTurn(mGame2.getCompTurn());
+//        mGame2.changeTurn(mGame2.getCompTurn());
         mGame2.compMove();
 
         updateBoardButtons();
         checkIfGameOver();
+        mGame2.changeTurn(mGame2.getUserTurn());
 
         setTurnBarToUserTurn();
     }
 
     private void setTurnBarToUserTurn() {
-        turnBar.setText("Your turn!");
+        turnBar.setText(R.string.your_turn);
     }
 
     private void setTurnBarToCompTurn() {
-        turnBar.setText("Computer turn!");
+        turnBar.setText(R.string.comp_turn);
     }
 
     private void checkIfGameOver() {
@@ -358,7 +360,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void restoreOrSetFromPreferences_AllAppAndGameSettings() {
         SharedPreferences sp = getDefaultSharedPreferences(this);
-        //mUseAutoSave = sp.getBoolean(mKEY_AUTO_SAVE, true);
+        mUseAutoSave = sp.getBoolean(mKEY_AUTO_SAVE, true);
     }
     private void showSettings() {
         Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
