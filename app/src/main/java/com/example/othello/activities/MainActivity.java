@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         setupButtonListeners();
         setupFAB();
 
-        chooseColor();//TODO: make dialog at begining of game to get color
+
 
 
 
@@ -78,12 +78,18 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
+        //TODO: method to update scores
     }
 
 
     private void startNewGame() {
         mGame=new OthelloGame();
+        chooseColor();//TODO: make dialog at begining of game to get color
+        updateBoardButtons();
+        //TODO: method: if comp turn, do comp move, else: nothing
     }
+
+    //TODO: method to run player turn, end with automatically doing comp turn
 
     private void setupFAB() {
         binding.fab.setOnClickListener(new View.OnClickListener() {
@@ -244,7 +250,13 @@ public class MainActivity extends AppCompatActivity {
 
         //change the images on the buttons after processing the move
         updateBoardButtons();
+
+        //TODO: call method to do comp turn, update again
     }
+
+    //TODO method: check for game over, call after EVERY turn,
+    //if over, update statistics (if time)
+    //if over, give prompt to play again, if yes call startNewGame()
     private void showRules() {
         showInfoDialog(MainActivity.this, "Othello Rules",
                 "Welcome to Othello!\n\n" +
