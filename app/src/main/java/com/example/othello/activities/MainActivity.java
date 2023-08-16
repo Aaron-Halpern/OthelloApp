@@ -12,7 +12,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import com.example.othello.R;
-import com.example.othello.models.OthelloGame;
 import com.example.othello.models.OthelloConfig;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -22,22 +21,18 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 
 import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
 
 import com.example.othello.databinding.ActivityMainBinding;
-import com.google.gson.Gson;
 
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -463,13 +458,13 @@ public class MainActivity extends AppCompatActivity {
             mGame2.setTurn(3);
             int[] score = mGame2.getScore();
             if (score[0] > score[1]) {
-                OthelloGame.userWins++;
+//                OthelloGame.userWins++;
                 winner = "User";
             } else if (score[1] > score[0]) {
-                OthelloGame.compWins++;
+//                OthelloGame.compWins++;
                 winner = "Computer";
             } else {
-                OthelloGame.ties++;
+//                OthelloGame.ties++;
                 winner = "Tie! No one";
             }
             final String[] options = {"Yes", "No"};

@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.othello"
-        minSdk 24
+        minSdk 23
         targetSdk 33 //Please don't update this it causes me issues -DA
         versionCode 1
         versionName "1.0"
