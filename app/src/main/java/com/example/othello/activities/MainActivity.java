@@ -95,20 +95,26 @@ public class MainActivity extends AppCompatActivity {
                 if (board[row][col]==1){
                     ImageButton space = findViewById(mGame2.spaces[row][col]); //see if this code works
                     space.setImageDrawable(WHITE_PIECE);
+//                    space.refreshDrawableState();
                 } else if (board[row][col]==2) {
                     ImageButton space = findViewById(mGame2.spaces[row][col]);
                     space.setImageDrawable(BLACK_PIECE);
+//                    space.refreshDrawableState();
                 } else if (board[row][col]==0) {
                     ImageButton space = findViewById(mGame2.spaces[row][col]);
                     space.setImageDrawable(BLANK_SPACE);
+//                    space.refreshDrawableState();
                 }
             }
+            turnDelay();
         }
         String userScoreMsg = getString(R.string.your_score)+(mGame2.getScore()[0]);
         String compScoreMsg = getString(R.string.comp_score) +(mGame2.getScore()[1]);
 //        userScore.setText((R.string.your_score) + (mGame2.getScore()[0]));
         userScore.setText(userScoreMsg);
         compScore.setText(compScoreMsg);
+
+        turnDelay();
 //        compScore.setText((R.string.comp_score) + (mGame2.getScore()[1]));
     }
 
@@ -126,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static void turnDelay() {
         try {
-            Thread.sleep(1000);
+            Thread.sleep(125);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -153,6 +159,7 @@ public class MainActivity extends AppCompatActivity {
             if ("White".equals(colors[color])) {
                 mGame2.setTurn(1);
                 setTurnBarToCompTurn();
+                compMove();
             } else if ("Black".equals(colors[color])) {
                 mGame2.setTurn(2);
                 setTurnBarToUserTurn();
@@ -160,13 +167,14 @@ public class MainActivity extends AppCompatActivity {
         }
         });
         builder.show();
-        if (mGame2.getCompTurn()!=mGame2.getNotTurn()){
-//        if(mGame2.getCompTurn()==2) {
-            //call setComputerTurn();
 
-            compMove();
+//        if (mGame2.getCompTurn()==mGame2.getTurn()){
+//        if(mGame2.getCompTurn()==2) {
+//            call setComputerTurn();
+
+//            compMove();
 //        }
-        }
+//        }
     }
 
 
@@ -274,7 +282,7 @@ public class MainActivity extends AppCompatActivity {
     //gets 2 values based on button pressed
     private void userAndCompMoves(String row, int col) {
 
-        if (mGame2.getUserTurn()!=mGame2.getNotTurn()){
+        if (mGame2.getUserTurn()==mGame2.getTurn()){
             int y = col - 1;
             int x;
             switch (row) {
@@ -329,7 +337,7 @@ public class MainActivity extends AppCompatActivity {
     //        mGame2.changeTurn(mGame2.getUserTurn());
                 mGame2.changeTurn(mGame2.getCompTurn());
                 setTurnBarToCompTurn();
-                turnDelay();
+//                turnDelay();
 
                 compMove();
             }
@@ -350,7 +358,7 @@ public class MainActivity extends AppCompatActivity {
         mGame2.changeTurn(mGame2.getUserTurn());
 
         setTurnBarToUserTurn();
-        turnDelay();
+//        turnDelay();
     }
 
     private void setTurnBarToUserTurn() {

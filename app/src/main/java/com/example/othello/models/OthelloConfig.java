@@ -47,6 +47,9 @@ public class OthelloConfig {
 	public int getNotTurn(){
 		return notTurn;
 	}
+	public int getTurn(){
+		return turn;
+	}
 	public void changeTurn(int turn) {
 		this.turn = turn;
 		if(turn == 1) {
