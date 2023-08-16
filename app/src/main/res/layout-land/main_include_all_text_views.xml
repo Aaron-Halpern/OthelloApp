@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:text="@string/your_turn"
         android:textSize="@dimen/turn_text_size"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:layout_marginBottom="@dimen/layout_margin"
         tools:showIn="@layout/main_include_all_content_items" />
 
@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:text="@string/your_score"
         android:textSize="@dimen/score_text_size"
-        android:textColor="@color/black" />
+        android:textColor="@color/white" />
 
     <TextView
         android:id="@+id/compScore"
@@ -31,6 +31,6 @@
         android:layout_height="wrap_content"
         android:text="@string/comp_score"
         android:textSize="@dimen/score_text_size"
-        android:textColor="@color/black" />
+        android:textColor="@color/white" />
 
 </LinearLayout>
