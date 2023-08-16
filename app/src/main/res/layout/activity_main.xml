@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context=".activities.MainActivity"
-    android:background="#B6DBAD">
+    android:background="?attr/colorSecondaryContainer">
 
     <include layout="@layout/main_include_toolbar" />
 
