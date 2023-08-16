@@ -12,6 +12,7 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
 import com.example.othello.R;
+import com.example.othello.lib.Utils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class SettingsActivity extends AppCompatActivity {
@@ -56,6 +57,18 @@ public class SettingsActivity extends AppCompatActivity {
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
 
+            setNightModePreferenceListener();
+
+        }
+        private void setNightModePreferenceListener() {
+            Preference nightModePreference = findPreference(getString(R.string.night_mode_key));
+            if (nightModePreference != null) {
+                nightModePreference.setOnPreferenceChangeListener((preference, newValue) -> {
+                    Boolean newBooleanValue = (Boolean)newValue;
+                    Utils.setNightModeOnOrOff(newBooleanValue);
+                    return true;
+                });
+            }
         }
     }
 }

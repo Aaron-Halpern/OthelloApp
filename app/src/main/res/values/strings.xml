@@ -16,4 +16,12 @@
     <string name="auto_save_title">Auto-Save Game on Exit</string>
     <string name="game_header">Game</string>
 
+    <!-- Preferences -->
+    <string name="night_mode_key">Night Mode</string>
+    <string name="night_mode_title">Night/Dark Mode</string>
+    <string name="night_mode_off">Never use Night/Dark Mode</string>
+    <string name="night_mode_on">Use Night/Dark Mode (unless disabled in OS Settings)</string>
+    <!-- Preference Titles -->
+    <string name="display_header">Display</string>
+
 </resources>
