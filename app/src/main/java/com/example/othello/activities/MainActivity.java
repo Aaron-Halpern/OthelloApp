@@ -132,6 +132,7 @@ public class MainActivity extends AppCompatActivity {
 
         setupDrawables();
 
+        mKEY_AUTO_SAVE = getString(R.string.auto_save_key);
         turnBar = findViewById(R.id.turn);
         userScore = findViewById(R.id.userScore);
         compScore = findViewById(R.id.compScore);
