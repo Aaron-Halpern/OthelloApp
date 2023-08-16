@@ -32,7 +32,7 @@ public class OthelloConfig {
 
 	private int userTurn;
 	private int compTurn;
-	private int turn;
+	private int turn=2;//TODO: figure this out, might need turn counter var to track turns
 	private int notTurn;
 //	private int turnCounter = 2;
 	private ArrayList<Integer> tempAL;
