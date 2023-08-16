@@ -159,6 +159,7 @@ public class MainActivity extends AppCompatActivity {
         public void onClick(DialogInterface dialog, int color) {
             if ("White".equals(colors[color])) {
                 mGame2.setTurn(1);
+                mGame2.changeTurn(mGame2.getCompTurn());
                 setTurnBarToCompTurn();
                 compMove();
                 setupButtonListeners();
