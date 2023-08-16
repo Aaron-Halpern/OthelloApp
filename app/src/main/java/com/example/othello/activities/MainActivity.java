@@ -20,6 +20,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.os.Handler;
 import android.view.View;
 
 import com.example.othello.databinding.ActivityMainBinding;
@@ -39,7 +40,8 @@ public class MainActivity extends AppCompatActivity {
     private final String mKEY_GAME = "GAME";
     private String mKEY_AUTO_SAVE;
     private Drawable WHITE_PIECE, BLACK_PIECE, BLANK_SPACE;
-    private Toast invalidToast;
+    private Toast invalidToast, notTurnToast;
+    private Handler turnDelay;
 
 
     //private OthelloGame mGame;
@@ -47,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView turnBar, userScore, compScore;
 
 
-
+//TODO: figure out why 1st move is always ignored, it waits for the user to click somewhere before making the 1st move
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         compScore = findViewById(R.id.compScore);
 //        chooseColor(); //delete this one once startNewGame() works
         startNewGame();
-        setupToast();
+
     }
 
     private void setupDrawables() {
@@ -79,6 +81,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupToast() {
         invalidToast = Toast.makeText(this, "Invalid move!",
+                Toast.LENGTH_LONG);
+        notTurnToast = Toast.makeText(this, "Not your move!",
                 Toast.LENGTH_LONG);
     }
 
@@ -100,19 +104,31 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
-        userScore.setText("Your score: " + mGame2.getScore()[0]);
-        compScore.setText("Computer score: " + mGame2.getScore()[1]);
+        String userScoreMsg = getString(R.string.your_score)+(mGame2.getScore()[0]);
+        String compScoreMsg = getString(R.string.comp_score) +(mGame2.getScore()[1]);
+//        userScore.setText((R.string.your_score) + (mGame2.getScore()[0]));
+        userScore.setText(userScoreMsg);
+        compScore.setText(compScoreMsg);
+//        compScore.setText((R.string.comp_score) + (mGame2.getScore()[1]));
     }
 
 
     private void startNewGame() {
         mGame2 = new OthelloConfig();
         chooseColor();
+        setupToast();
         updateBoardButtons();
 
-        if(mGame2.getCompTurn()==2) {
-            //call setComputerTurn();
-            compMove();
+
+
+
+    }
+
+    private static void turnDelay() {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -136,12 +152,21 @@ public class MainActivity extends AppCompatActivity {
         public void onClick(DialogInterface dialog, int color) {
             if ("White".equals(colors[color])) {
                 mGame2.setTurn(1);
+                setTurnBarToCompTurn();
             } else if ("Black".equals(colors[color])) {
                 mGame2.setTurn(2);
+                setTurnBarToUserTurn();
             }
         }
         });
         builder.show();
+        if (mGame2.getCompTurn()!=mGame2.getNotTurn()){
+//        if(mGame2.getCompTurn()==2) {
+            //call setComputerTurn();
+
+            compMove();
+//        }
+        }
     }
 
 
@@ -247,77 +272,85 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //gets 2 values based on button pressed
-    private void userAndCompMoves(String row, int col){
+    private void userAndCompMoves(String row, int col) {
 
-        int y= col-1;
-        int x;
-        switch (row){
-            case "A":
-                x=0;
-                break;
-            case "B":
-                x=1;
-                break;
-            case "C":
-                x=2;
-                break;
-            case "D":
-                x=3;
-                break;
-            case "E":
-                x=4;
-                break;
-            case "F":
-                x=5;
-                break;
-            case "G":
-                x=6;
-                break;
-            case "H":
-                x=7;
-                break;
-            default: x=-1;
-        }
+        if (mGame2.getUserTurn()!=mGame2.getNotTurn()){
+            int y = col - 1;
+            int x;
+            switch (row) {
+                case "A":
+                    x = 0;
+                    break;
+                case "B":
+                    x = 1;
+                    break;
+                case "C":
+                    x = 2;
+                    break;
+                case "D":
+                    x = 3;
+                    break;
+                case "E":
+                    x = 4;
+                    break;
+                case "F":
+                    x = 5;
+                    break;
+                case "G":
+                    x = 6;
+                    break;
+                case "H":
+                    x = 7;
+                    break;
+                default:
+                    x = -1;
+            }
 
 
-
-        boolean invalidMove = false;
-        //don't use while loop, just display invalid move, then exit the method, wait for next listener
-//        if (!invalidMove) {
-//
-//        }
+            boolean invalidMove = false;
+            //don't use while loop, just display invalid move, then exit the method, wait for next listener
+    //        if (!invalidMove) {
+    //
+    //        }
 
             if (!mGame2.userMove(x, y)) {
-//                invalidMove = true;
+    //                invalidMove = true;
                 invalidToast.show();
 
-            }
-            else {
-//                Toast.makeText(this, "Invalid move!",
-//                        Toast.LENGTH_SHORT).show();
-//                invalidToast.show();
-//            }
-//        }
+            } else {
+    //                Toast.makeText(this, "Invalid move!",
+    //                        Toast.LENGTH_SHORT).show();
+    //                invalidToast.show();
+    //            }
+    //        }
 
                 updateBoardButtons();
                 checkIfGameOver();
-//        mGame2.changeTurn(mGame2.getUserTurn());
+    //        mGame2.changeTurn(mGame2.getUserTurn());
                 mGame2.changeTurn(mGame2.getCompTurn());
                 setTurnBarToCompTurn();
+                turnDelay();
 
                 compMove();
             }
+        }else {
+            notTurnToast.show();
+        }
     }
 
     private void compMove() {
 //        mGame2.changeTurn(mGame2.getCompTurn());
+
+
         mGame2.compMove();
 
         updateBoardButtons();
+
         checkIfGameOver();
         mGame2.changeTurn(mGame2.getUserTurn());
 
         setTurnBarToUserTurn();
+        turnDelay();
     }
 
     private void setTurnBarToUserTurn() {

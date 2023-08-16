@@ -34,6 +34,7 @@ public class OthelloConfig {
 	private int compTurn;
 	private int turn;
 	private int notTurn;
+//	private int turnCounter = 2;
 	private ArrayList<Integer> tempAL;
 	
 	public void setTurn(int turn) {
@@ -43,13 +44,19 @@ public class OthelloConfig {
 		else if(turn == 2)
 			compTurn = 1;
 	}
-	
+	public int getNotTurn(){
+		return notTurn;
+	}
 	public void changeTurn(int turn) {
 		this.turn = turn;
-		if(turn == 1)
+		if(turn == 1) {
 			notTurn = 2;
-		else if(turn == 2)
+//			turnCounter = 2;
+		}
+		else if(turn == 2){
 			notTurn = 1;
+//			turnCounter=1;
+		}
 	}
 	
 	public int getUserTurn() {
