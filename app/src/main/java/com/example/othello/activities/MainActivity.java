@@ -21,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 
 import com.example.othello.databinding.ActivityMainBinding;
@@ -106,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
 //                    space.refreshDrawableState();
                 }
             }
-            turnDelay();
+//            turnDelay();
         }
         String userScoreMsg = getString(R.string.your_score)+(mGame2.getScore()[0]);
         String compScoreMsg = getString(R.string.comp_score) +(mGame2.getScore()[1]);
@@ -114,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
         userScore.setText(userScoreMsg);
         compScore.setText(compScoreMsg);
 
-        turnDelay();
+//        turnDelay();
 //        compScore.setText((R.string.comp_score) + (mGame2.getScore()[1]));
     }
 
@@ -130,13 +131,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private static void turnDelay() {
-        try {
-            Thread.sleep(125);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-    }
+//    private static void turnDelay() {
+//        try {
+//            Thread.sleep(125);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 
     private void setupFAB() {
         binding.fab.setOnClickListener(new View.OnClickListener() {
@@ -349,15 +350,28 @@ public class MainActivity extends AppCompatActivity {
     private void compMove() {
 //        mGame2.changeTurn(mGame2.getCompTurn());
 
+        final Handler handler = new Handler(Looper.getMainLooper());
+        handler.postDelayed(() -> {
+            mGame2.compMove();
+            updateBoardButtons();
 
-        mGame2.compMove();
+            checkIfGameOver();
+            mGame2.changeTurn(mGame2.getUserTurn());
 
-        updateBoardButtons();
+            setTurnBarToUserTurn();
 
-        checkIfGameOver();
-        mGame2.changeTurn(mGame2.getUserTurn());
+        }, 1000);
 
-        setTurnBarToUserTurn();
+//        Handler delayCompMove = new Handler();
+//        delayCompMove.postDelayed(mGame2.compMove(),1000);
+//        mGame2.compMove();
+
+//        updateBoardButtons();
+//
+//        checkIfGameOver();
+//        mGame2.changeTurn(mGame2.getUserTurn());
+//
+//        setTurnBarToUserTurn();
 //        turnDelay();
     }
 
