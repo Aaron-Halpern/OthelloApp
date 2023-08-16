@@ -186,7 +186,11 @@ public class MainActivity extends AppCompatActivity {
     private void startNewGame() {
         mGame2 = new OthelloConfig();
         updateBoardButtons();
-        chooseColor();
+        if (mGame2.getIsNewGame()){
+            chooseColor();
+            mGame2.midgame();
+        }
+
         setupToast();
 
 
