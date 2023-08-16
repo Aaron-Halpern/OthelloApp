@@ -30,8 +30,8 @@ public class OthelloConfig {
 
 
 
-	private int userTurn;
-	private int compTurn;
+	private int userTurn = 1; //this will be updated shortly
+	private int compTurn = 2; //this will be updated shortly
 	private int turn=2;//TODO: figure this out, might need turn counter var to track turns
 	private int notTurn;
 //	private int turnCounter = 2;
@@ -80,15 +80,14 @@ public class OthelloConfig {
 	public int[] getScore() {
 		int userCount = 0;
 		int compCount = 0;
-		for(int x=0; x <= 7; x++) {
-			for(int y=0; y <= 7; y++) {
-				if(board[x][y] == userTurn) {
-					userCount++;
+		for (int x = 0; x <= 7; x++) {
+				for (int y = 0; y <= 7; y++) {
+					if (board[x][y] == userTurn) {
+						userCount++;
+					} else if (board[x][y] == compTurn) {
+						compCount++;
+					}
 				}
-				else if (board[x][y] == compTurn) {
-					compCount++;
-				}
-			}
 		}
 		int[] scores = {userCount, compCount};
 		return scores;

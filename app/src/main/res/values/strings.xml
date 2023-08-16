@@ -5,8 +5,8 @@
     <string name="your_turn">Your turn!</string>
     <string name="comp_turn">Computer\'s turn!</string>
 
-    <string name="your_score">Your score: </string>
-    <string name="comp_score">Computer\'s score: </string>
+    <string name="your_score">Your score:\ </string>
+    <string name="comp_score">Computer\'s score:\ </string>
 
     <string name="rules">Othello Rules</string>
 
