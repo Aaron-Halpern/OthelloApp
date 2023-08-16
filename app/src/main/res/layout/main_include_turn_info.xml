@@ -10,5 +10,5 @@
     android:textSize="@dimen/turn_text_size"
     android:layout_marginTop="@dimen/layout_margin2"
     android:layout_marginBottom="@dimen/layout_margin"
-    android:textColor="@color/black"
+    android:textColor="?attr/colorTertiary"
     tools:showIn="@layout/main_include_all_content_items" />
