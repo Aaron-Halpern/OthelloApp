@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
     private OthelloConfig mGame2;
     private TextView turnBar, userScore, compScore;
 
+    private String score1, score2;
 
     @Override
     protected void onStop() {
@@ -137,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
         userScore = findViewById(R.id.userScore);
         compScore = findViewById(R.id.compScore);
 //        chooseColor(); //delete this one once startNewGame() works
-        startNewGame();
+        startNewGame(savedInstanceState);
 
     }
 
@@ -173,8 +174,10 @@ public class MainActivity extends AppCompatActivity {
             }
 //            turnDelay();
         }
-        String userScoreMsg = getString(R.string.your_score) + (mGame2.getScore()[0]);
-        String compScoreMsg = getString(R.string.comp_score) + (mGame2.getScore()[1]);
+        score1 = ""+mGame2.getScore()[0];
+        score2 = ""+mGame2.getScore()[1];
+        String userScoreMsg = getString(R.string.your_score) + score1;
+        String compScoreMsg = getString(R.string.comp_score) + score2;
 //        userScore.setText((R.string.your_score) + (mGame2.getScore()[0]));
         userScore.setText(userScoreMsg);
         compScore.setText(compScoreMsg);
@@ -184,13 +187,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void startNewGame() {
+    private void startNewGame(Bundle savedInstanceState) {
         mGame2 = new OthelloConfig();
         updateBoardButtons();
-        if (mGame2.getIsNewGame()){
-            chooseColor();
-            mGame2.midgame();
-        }
+        chooseColor(savedInstanceState);
         setupToast();
     }
 
@@ -213,31 +213,32 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void chooseColor() {
-        if (mGame2.getIsNewGame()){
+    private void chooseColor(Bundle savedInstanceState) {
+        int scoreA = Integer.parseInt(score1);
+        int scoreB = Integer.parseInt(score2);
+        if (savedInstanceState==null) {
 
-        final String[] colors = {"White", "Black"};
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Select your color:");
-        builder.setItems(colors, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int color) {
-                if ("White".equals(colors[color])) {
-                    mGame2.setTurn(1);
-                    mGame2.changeTurn(mGame2.getCompTurn());
-                    setTurnBarToCompTurn();
-                    compMove();
-                    setupButtonListeners();
-                } else if ("Black".equals(colors[color])) {
-                    mGame2.setTurn(2);
-                    mGame2.changeTurn(mGame2.getUserTurn());
-                    setTurnBarToUserTurn();
-                    setupButtonListeners();
-
+            final String[] colors = {"White", "Black"};
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Select your color:");
+            builder.setItems(colors, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int color) {
+                    if ("White".equals(colors[color])) {
+                        mGame2.setTurn(1);
+                        mGame2.changeTurn(mGame2.getCompTurn());
+                        setTurnBarToCompTurn();
+                        compMove();
+                        setupButtonListeners();
+                    } else if ("Black".equals(colors[color])) {
+                        mGame2.setTurn(2);
+                        mGame2.changeTurn(mGame2.getUserTurn());
+                        setTurnBarToUserTurn();
+                        setupButtonListeners();
+                    }
                 }
-            }
-        });
-        builder.show();
+            });
+            builder.show();
 
 //        if (mGame2.getCompTurn()==mGame2.getTurn()){
 //        if(mGame2.getCompTurn()==2) {
@@ -341,7 +342,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
         if (itemId == R.id.action_new_game) {
-            startNewGame();
+            startNewGame(null);
             return true;
         } else if(itemId == R.id.action_settings) {
             showSettings();
@@ -477,7 +478,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(DialogInterface dialog, int option) {
                     if ("Yes".equals(options[option])) {
-                        startNewGame();
+                        startNewGame(null);
                     }
                 }
             });
