@@ -96,15 +96,12 @@ public class MainActivity extends AppCompatActivity {
                 if (board[row][col]==1){
                     ImageButton space = findViewById(mGame2.spaces[row][col]); //see if this code works
                     space.setImageDrawable(WHITE_PIECE);
-//                    space.refreshDrawableState();
                 } else if (board[row][col]==2) {
                     ImageButton space = findViewById(mGame2.spaces[row][col]);
                     space.setImageDrawable(BLACK_PIECE);
-//                    space.refreshDrawableState();
                 } else if (board[row][col]==0) {
                     ImageButton space = findViewById(mGame2.spaces[row][col]);
                     space.setImageDrawable(BLANK_SPACE);
-//                    space.refreshDrawableState();
                 }
             }
 //            turnDelay();
