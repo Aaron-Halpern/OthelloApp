@@ -213,6 +213,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void chooseColor() {
+        if (mGame2.getIsNewGame()){
+
         final String[] colors = {"White", "Black"};
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Select your color:");
@@ -230,6 +232,7 @@ public class MainActivity extends AppCompatActivity {
                     mGame2.changeTurn(mGame2.getUserTurn());
                     setTurnBarToUserTurn();
                     setupButtonListeners();
+
                 }
             }
         });
@@ -241,7 +244,7 @@ public class MainActivity extends AppCompatActivity {
 
 //            compMove();
 //        }
-//        }
+        }
     }
 
 
