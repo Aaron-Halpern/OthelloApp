@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        setupButtonListeners();
+//        setupButtonListeners();
         setupFAB();
 
 
@@ -161,9 +161,11 @@ public class MainActivity extends AppCompatActivity {
                 mGame2.setTurn(1);
                 setTurnBarToCompTurn();
                 compMove();
+                setupButtonListeners();
             } else if ("Black".equals(colors[color])) {
                 mGame2.setTurn(2);
                 setTurnBarToUserTurn();
+                setupButtonListeners();
             }
         }
         });
@@ -316,7 +318,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
 
-            boolean invalidMove = false;
+//            boolean invalidMove = false;
             //don't use while loop, just display invalid move, then exit the method, wait for next listener
     //        if (!invalidMove) {
     //
@@ -332,7 +334,6 @@ public class MainActivity extends AppCompatActivity {
     //                invalidToast.show();
     //            }
     //        }
-
                 updateBoardButtons();
                 checkIfGameOver();
     //        mGame2.changeTurn(mGame2.getUserTurn());
