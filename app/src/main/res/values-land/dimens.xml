@@ -1,5 +1,3 @@
 <resources>
     <dimen name="fab_margin">48dp</dimen>
-    <dimen name="layout_margin">26dp</dimen>
-    <dimen name="box_size">35dp</dimen>
 </resources>

@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="button_format">
-        <item name="android:layout_width">@dimen/box_size</item>
-        <item name="android:layout_height">@dimen/box_size</item>
+        <item name="android:layout_width">45dp</item>
+        <item name="android:layout_height">45dp</item>
         <item name="android:src">@drawable/box</item>
         <item name="android:background">@drawable/box</item>
     </style>
 
     <style name="white_piece_placed">
-        <item name="android:layout_width">@dimen/box_size</item>
-        <item name="android:layout_height">@dimen/box_size</item>
+        <item name="android:layout_width">45dp</item>
+        <item name="android:layout_height">45dp</item>
         <item name="android:background">@drawable/box</item>
         <item name="android:src">@drawable/white_piece</item>
     </style>
 
     <style name="black_piece_placed">
-    <item name="android:layout_width">@dimen/box_size</item>
-    <item name="android:layout_height">@dimen/box_size</item>
+    <item name="android:layout_width">45dp</item>
+    <item name="android:layout_height">45dp</item>
     <item name="android:src">@drawable/black_piece</item>
     <item name="android:background">@drawable/box</item>
 </style>
