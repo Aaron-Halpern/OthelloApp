@@ -20,4 +20,12 @@
             app:summaryOn="@string/night_mode_on"
             app:title="@string/night_mode_title" />
     </PreferenceCategory>
+
+<!--    <PreferenceCategory app:title="@string/display_header">-->
+<!--        <SwitchPreferenceCompat-->
+<!--            app:defaultValue="true"-->
+<!--            app:key="@string/is_mid_game"-->
+
+<!--            app:title="@string/is_mid_game" />-->
+<!--    </PreferenceCategory>-->
 </PreferenceScreen>

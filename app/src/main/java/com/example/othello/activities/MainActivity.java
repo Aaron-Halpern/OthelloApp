@@ -39,10 +39,12 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private Snackbar mSnackBar;
     private boolean mUseAutoSave;
+    private boolean mIsMidGame;
     private boolean mIsNightMode;
 
     private final String mKEY_GAME = "GAME";
     private String mKEY_AUTO_SAVE;
+    private String mKEY_IS_MID_GAME;
     private Drawable WHITE_PIECE, BLACK_PIECE, BLANK_SPACE;
     private Toast invalidToast, notTurnToast;
     private Handler turnDelay;
@@ -66,7 +68,15 @@ public class MainActivity extends AppCompatActivity {
 
         // Save current game or remove any prior game to/from default shared preferences
         if (mUseAutoSave) {
+            int scoreA = Integer.parseInt(score1);
+            int scoreB = Integer.parseInt(score2);
+            if ((scoreA!=2&&scoreB!=2)){
+                mIsMidGame=true;
+            }else {
+                mIsMidGame=false;
+            }
             editor.putString(mKEY_GAME, mGame2.getJSONFromCurrentGame());
+            editor.putBoolean(mKEY_IS_MID_GAME,mIsMidGame);
         } else {
             editor.remove(mKEY_GAME);
         }
@@ -88,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
             String gameString = defaultSharedPreferences.getString(mKEY_GAME, null);
             if (gameString != null) {
                 mGame2 = getGameFromJSON(gameString);
+                mIsMidGame=defaultSharedPreferences.getBoolean(mKEY_IS_MID_GAME, true);
                 updateBoardButtons();
             }
         }
@@ -96,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
     private void restoreOrSetFromPreferences_AllAppAndGameSettings() {
         SharedPreferences sp = getDefaultSharedPreferences(this);
         mUseAutoSave = sp.getBoolean(mKEY_AUTO_SAVE, true);
+        mIsMidGame = sp.getBoolean(mKEY_IS_MID_GAME, true);
     }
 
     @Override
@@ -103,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
         outState.putString(mKEY_GAME, getJSONFromGame(mGame2));
         outState.putBoolean(mKEY_AUTO_SAVE, mUseAutoSave);
+        outState.putBoolean(mKEY_IS_MID_GAME, mIsMidGame);
     }
 
     @Override
@@ -110,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
         super.onRestoreInstanceState(savedInstanceState);
         mGame2 = getGameFromJSON(savedInstanceState.getString(mKEY_GAME));
         mUseAutoSave = savedInstanceState.getBoolean(mKEY_AUTO_SAVE, true);
+        mIsMidGame= savedInstanceState.getBoolean(mKEY_IS_MID_GAME, true);
         updateBoardButtons();
     }
 
@@ -127,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         setupDrawables();
-
+        mKEY_IS_MID_GAME = getString(R.string.is_mid_game);
         mKEY_AUTO_SAVE = getString(R.string.auto_save_key);
         turnBar = findViewById(R.id.turn);
         userScore = findViewById(R.id.userScore);
@@ -210,8 +224,14 @@ public class MainActivity extends AppCompatActivity {
 
     private void chooseColor(Bundle savedInstanceState) {
         setupButtonListeners();
-        int scoreA = Integer.parseInt(score1);
-        int scoreB = Integer.parseInt(score2);
+//        if ( savedInstanceState!=null) {
+//            mGame2 = getGameFromJSON(savedInstanceState.getString(mKEY_GAME));
+//        }
+//        int scoreA = Integer.parseInt(score1);
+//        int scoreB = Integer.parseInt(score2);
+//        (scoreA!=2&&scoreB!=2)
+
+//        if (!mIsMidGame){
         if (savedInstanceState==null) {
 
             final String[] colors = {"White", "Black"};
@@ -243,6 +263,7 @@ public class MainActivity extends AppCompatActivity {
 //            compMove();
 //        }
         }
+//        }
     }
 
 
