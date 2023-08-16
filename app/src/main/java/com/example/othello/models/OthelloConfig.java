@@ -30,13 +30,20 @@ public class OthelloConfig {
 
 
 
-
+	private boolean isNewGame = true;
 	private int userTurn = 1; //this will be updated shortly
 	private int compTurn = 2; //this will be updated shortly
 	private int turn=2;//TODO: figure this out, might need turn counter var to track turns
 	private int notTurn;
 //	private int turnCounter = 2;
 	private ArrayList<Integer> tempAL;
+
+	public boolean getIsNewGame(){
+		return isNewGame;
+	}
+	public void midgame(){
+		isNewGame=false;
+	}
 	
 	public void setTurn(int turn) {
 		userTurn = turn;
