@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
 //            turnDelay();
         }
         String userScoreMsg = getString(R.string.your_score)+(mGame2.getScore()[0]);
-        String compScoreMsg = getString(R.string.comp_score) +(mGame2.getScore()[1]);
+        String compScoreMsg = getString(R.string.comp_score)+(mGame2.getScore()[1]);
 //        userScore.setText((R.string.your_score) + (mGame2.getScore()[0]));
         userScore.setText(userScoreMsg);
         compScore.setText(compScoreMsg);
@@ -119,9 +119,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void startNewGame() {
         mGame2 = new OthelloConfig();
+        updateBoardButtons();
         chooseColor();
         setupToast();
-        updateBoardButtons();
 
 
 
