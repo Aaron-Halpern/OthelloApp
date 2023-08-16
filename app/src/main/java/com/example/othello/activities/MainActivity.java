@@ -162,6 +162,7 @@ public class MainActivity extends AppCompatActivity {
                 setupButtonListeners();
             } else if ("Black".equals(colors[color])) {
                 mGame2.setTurn(2);
+                mGame2.changeTurn(mGame2.getUserTurn());
                 setTurnBarToUserTurn();
                 setupButtonListeners();
             }
