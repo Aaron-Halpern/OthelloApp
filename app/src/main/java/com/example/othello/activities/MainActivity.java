@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private Snackbar mSnackBar;
     private boolean mUseAutoSave;
+    private boolean mIsNightMode;
 
     private final String mKEY_GAME = "GAME";
     private String mKEY_AUTO_SAVE;
