@@ -8,7 +8,7 @@
 
 
     <include
-        layout="@layout/test" />
+        layout="@layout/main_include_all_text_views" />
 
     <include layout="@layout/main_include_game_board"
         android:layout_width="wrap_content"
