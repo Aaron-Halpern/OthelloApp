@@ -190,10 +190,7 @@ public class MainActivity extends AppCompatActivity {
             chooseColor();
             mGame2.midgame();
         }
-
         setupToast();
-
-
     }
 
 //    private static void turnDelay() {
@@ -339,7 +336,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
-        if (itemId == R.id.action_settings) {
+        if (itemId == R.id.action_new_game) {
+            startNewGame();
+            return true;
+        } else if(itemId == R.id.action_settings) {
             showSettings();
             return true;
         } else if (itemId == R.id.action_rules) {
