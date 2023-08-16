@@ -214,6 +214,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void chooseColor(Bundle savedInstanceState) {
+        setupButtonListeners();
         int scoreA = Integer.parseInt(score1);
         int scoreB = Integer.parseInt(score2);
         if (savedInstanceState==null) {
@@ -229,12 +230,12 @@ public class MainActivity extends AppCompatActivity {
                         mGame2.changeTurn(mGame2.getCompTurn());
                         setTurnBarToCompTurn();
                         compMove();
-                        setupButtonListeners();
+
                     } else if ("Black".equals(colors[color])) {
                         mGame2.setTurn(2);
                         mGame2.changeTurn(mGame2.getUserTurn());
                         setTurnBarToUserTurn();
-                        setupButtonListeners();
+
                     }
                 }
             });
