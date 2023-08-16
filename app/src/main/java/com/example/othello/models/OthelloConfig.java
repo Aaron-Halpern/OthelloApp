@@ -43,10 +43,14 @@ public class OthelloConfig {
 			compTurn = 2;
 		else if(turn == 2)
 			compTurn = 1;
+		else if (turn==3) {
+			this.turn=turn;
+		}
 	}
 	public int getNotTurn(){
 		return notTurn;
 	}
+
 	public int getTurn(){
 		return turn;
 	}
