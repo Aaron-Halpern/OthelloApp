@@ -137,7 +137,6 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 //        setupButtonListeners();
-        setupFAB();
 
 
         setupDrawables();
@@ -211,16 +210,6 @@ public class MainActivity extends AppCompatActivity {
 //        }
 //    }
 
-    private void setupFAB() {
-        binding.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAnchorView(R.id.fab)
-                        .setAction("Action", null).show();
-            }
-        });
-    }
 
     private void chooseColor(Bundle savedInstanceState) {
         setupButtonListeners();
