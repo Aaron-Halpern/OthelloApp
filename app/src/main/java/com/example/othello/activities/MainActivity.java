@@ -423,13 +423,15 @@ public class MainActivity extends AppCompatActivity {
                     //            }
                     //        }
                     updateBoardButtons();
-                    checkIfGameOver();
-                    //        mGame2.changeTurn(mGame2.getUserTurn());
-                    mGame2.changeTurn(mGame2.getCompTurn());
-                    setTurnBarToCompTurn();
+                    if(!checkIfGameOver()){
+                        mGame2.changeTurn(mGame2.getCompTurn());
+                        setTurnBarToCompTurn();
 //                turnDelay();
 
-                    compMove();
+                        compMove();
+                    }
+                    //        mGame2.changeTurn(mGame2.getUserTurn());
+
                 }
             } else {
                 notTurnToast.show();
@@ -473,7 +475,7 @@ public class MainActivity extends AppCompatActivity {
         turnBar.setText(R.string.comp_turn);
     }
 
-    private void checkIfGameOver() {
+    private boolean checkIfGameOver() {
         if (mGame2.fullBoard() || !mGame2.movesLeft()) {
             String winner;
             mGame2.setTurn(3);
@@ -500,7 +502,10 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
             builder.show();
-        }
+            return true;
+        }else {
+            return false;
+    }
     }
 
 
