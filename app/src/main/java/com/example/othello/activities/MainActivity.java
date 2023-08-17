@@ -363,6 +363,11 @@ public class MainActivity extends AppCompatActivity {
     //gets 2 values based on button pressed
     private void userAndCompMoves(String row, int col) {
 
+        int scoreA = Integer.parseInt(score1);
+        int scoreB = Integer.parseInt(score2);
+        if (scoreA==2&&scoreB==2){
+
+        }
         if (mGame2.getUserTurn() == mGame2.getTurn()) {
             int y = col - 1;
             int x;
