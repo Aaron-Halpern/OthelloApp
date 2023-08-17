@@ -447,10 +447,13 @@ public class MainActivity extends AppCompatActivity {
             mGame2.compMove();
             updateBoardButtons();
 
-            checkIfGameOver();
-            mGame2.changeTurn(mGame2.getUserTurn());
+            if(!checkIfGameOver()){
+                mGame2.changeTurn(mGame2.getUserTurn());
 
-            setTurnBarToUserTurn();
+                setTurnBarToUserTurn();
+            }
+//            checkIfGameOver();
+
 
         }, 1000);
 
