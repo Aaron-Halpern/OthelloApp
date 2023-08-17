@@ -16,7 +16,6 @@ public class OthelloConfig {
 			 					  {0,0,0,0,0,0,0,0},
 			 					  {0,0,0,0,0,0,0,0},
 			 					  {0,0,0,0,0,0,0,0}};
-	//if needed: make paralell array of views
 	public int[][] spaces = {{R.id.A1, R.id.A2, R.id.A3, R.id.A4, R.id.A5, R.id.A6, R.id.A7, R.id.A8},
 							{R.id.B1, R.id.B2, R.id.B3, R.id.B4, R.id.B5, R.id.B6, R.id.B7, R.id.B8},
 							{R.id.C1, R.id.C2, R.id.C3, R.id.C4, R.id.C5, R.id.C6, R.id.C7, R.id.C8},
@@ -25,16 +24,10 @@ public class OthelloConfig {
 							{R.id.F1,R.id.F2,R.id.F3,R.id.F4,R.id.F5,R.id.F6,R.id.F7,R.id.F8},
 							{R.id.G1,R.id.G2,R.id.G3,R.id.G4,R.id.G5,R.id.G6,R.id.G7,R.id.G8},
 							{R.id.H1,R.id.H2,R.id.H3,R.id.H4,R.id.H5,R.id.H6,R.id.H7,R.id.H8}};
-
-
-
-
-
 	private int userTurn = 1; //this will be updated shortly
 	private int compTurn = 2; //this will be updated shortly
-	private int turn=2;//TODO: figure this out, might need turn counter var to track turns
+	private int turn=2;
 	private int notTurn;
-//	private int turnCounter = 2;
 	private ArrayList<Integer> tempAL;
 	
 	public void setTurn(int turn) {

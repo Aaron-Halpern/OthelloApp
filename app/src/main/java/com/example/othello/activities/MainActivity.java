@@ -481,7 +481,6 @@ public class MainActivity extends AppCompatActivity {
     private boolean checkIfGameOver() {
         if (mGame2.fullBoard() || !mGame2.movesLeft()) {
             String winner;
-            mGame2.setTurn(3);
             int[] score = mGame2.getScore();
             if (score[0] > score[1]) {
 //                OthelloGame.userWins++;
