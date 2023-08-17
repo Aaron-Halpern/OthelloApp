@@ -490,6 +490,7 @@ public class MainActivity extends AppCompatActivity {
 //                OthelloGame.ties++;
                 winner = "Tie! No one";
             }
+
             final String[] options = {"Yes", "No"};
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle(winner + " is the winner!\nWould you like to play again?");
@@ -498,6 +499,8 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(DialogInterface dialog, int option) {
                     if ("Yes".equals(options[option])) {
                         startNewGame(null);
+                    }else if ("No".equals(options[option])) {
+                        updateBoardButtons();
                     }
                 }
             });
