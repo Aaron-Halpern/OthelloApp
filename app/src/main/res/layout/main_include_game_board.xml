@@ -12,14 +12,6 @@
             app:layout_constraintRight_toLeftOf="@id/A2"
             app:layout_constraintBottom_toTopOf="@id/B1" />
 
-<!--        <android.widget.Button-->
-<!--            android:id="@+id/A1"-->
-<!--            style="@style/button_format"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:layout_constraintLeft_toRightOf="parent"-->
-<!--            app:layout_constraintRight_toLeftOf="@id/A2"-->
-<!--            app:layout_constraintBottom_toTopOf="@id/B1" />-->
-
         <android.widget.ImageButton
             android:id="@+id/A2"
             style="@style/button_format"

@@ -29,7 +29,8 @@ public class OthelloConfig {
 	private int turn=2;
 	private int notTurn;
 	private ArrayList<Integer> tempAL;
-	
+
+	//This sets the user's selected color
 	public void setTurn(int turn) {
 		userTurn = turn;
 		if(turn == 1)
@@ -41,29 +42,28 @@ public class OthelloConfig {
 		}
 	}
 
-	public int getNotTurn(){
-		return notTurn;
-	}
 
 	public int getTurn(){
 		return turn;
 	}
+
+	//Change who's moving: the user or computer
 	public void changeTurn(int turn) {
 		this.turn = turn;
 		if(turn == 1) {
 			notTurn = 2;
-//			turnCounter = 2;
 		}
 		else if(turn == 2){
 			notTurn = 1;
-//			turnCounter=1;
 		}
 	}
-	
+
+	//Get the user's color
 	public int getUserTurn() {
 		return userTurn;
 	}
-	
+
+	//Get the comp's color
 	public int getCompTurn() {
 		return compTurn;
 	}
@@ -71,10 +71,7 @@ public class OthelloConfig {
 	public int[][] getBoard() {
 		return board;
 	}
-	public int[][] getSpaces() {
-		return spaces;
-	}
-	
+
 	public int[] getScore() {
 		int userCount = 0;
 		int compCount = 0;
@@ -90,14 +87,16 @@ public class OthelloConfig {
 		int[] scores = {userCount, compCount};
 		return scores;
 	}
-	
+
+	//Returns how many moves are available
 	public boolean movesLeft() {
 		ArrayList<int[]> moveset = checkMoves();
 		if(moveset.size() == 0)
 			return false;
 		return true;
 	}
-	
+
+	//Returns if there are no more spaces available on the board
 	public boolean fullBoard() {
 		boolean openSpace = false;
 		for(int x=0; x <= 7; x++)
@@ -108,7 +107,8 @@ public class OthelloConfig {
 			return false;
 		return true;
 	}
-	
+
+	//The user moves
 	public boolean userMove(int x, int y) {
 		ArrayList<int[]> moveset = checkMoves();
 		for(int[] moves : moveset) {
@@ -119,7 +119,8 @@ public class OthelloConfig {
 		}
 		return false;
 	}
-	
+
+	//The computer moves
 	public boolean compMove() {
 		int bestX = -1, bestY = -1, mP = -1, highestMP = -1;
 		for(int x=0; x <= 7; x++) {
@@ -141,7 +142,8 @@ public class OthelloConfig {
 		else
 			return false;
 	}
-	
+
+	//A move is accomplished
 	private int doMove(int x, int y, boolean go) {
 		ArrayList<int[]> moveset = checkMoves();
 		boolean isValid = false;
@@ -218,7 +220,8 @@ public class OthelloConfig {
 		}	
 		return movePower;
 	}
-	
+
+	//An ArrayList of all viable moves are returned
 	private ArrayList<int[]> checkMoves() {
 		ArrayList<int[]> moveset = new ArrayList<>();
 		for(int i=0; i <= 7; i++) {

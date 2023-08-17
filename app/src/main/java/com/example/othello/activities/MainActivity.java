@@ -32,6 +32,7 @@ import android.view.MenuItem;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
 //comment
 public class MainActivity extends AppCompatActivity {
 
@@ -56,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
 
     private String score1, score2;
 
+    //The following code is for the auto-save functionality:
+
     @Override
     protected void onStop() {
         super.onStop();
@@ -70,13 +73,13 @@ public class MainActivity extends AppCompatActivity {
         if (mUseAutoSave) {
             int scoreA = Integer.parseInt(score1);
             int scoreB = Integer.parseInt(score2);
-            if ((scoreA!=2&&scoreB!=2)){
-                mIsMidGame=true;
-            }else {
-                mIsMidGame=false;
+            if ((scoreA != 2 && scoreB != 2)) {
+                mIsMidGame = true;
+            } else {
+                mIsMidGame = false;
             }
             editor.putString(mKEY_GAME, mGame2.getJSONFromCurrentGame());
-            editor.putBoolean(mKEY_IS_MID_GAME,mIsMidGame);
+            editor.putBoolean(mKEY_IS_MID_GAME, mIsMidGame);
         } else {
             editor.remove(mKEY_GAME);
         }
@@ -98,8 +101,8 @@ public class MainActivity extends AppCompatActivity {
             String gameString = defaultSharedPreferences.getString(mKEY_GAME, null);
             if (gameString != null) {
                 mGame2 = getGameFromJSON(gameString);
-                mIsMidGame=defaultSharedPreferences.getBoolean(mKEY_IS_MID_GAME, true);
-                updateBoardButtons();
+                mIsMidGame = defaultSharedPreferences.getBoolean(mKEY_IS_MID_GAME, true);
+                updateBoardButtonsAndScoreTextViews();
             }
         }
     }
@@ -123,9 +126,11 @@ public class MainActivity extends AppCompatActivity {
         super.onRestoreInstanceState(savedInstanceState);
         mGame2 = getGameFromJSON(savedInstanceState.getString(mKEY_GAME));
         mUseAutoSave = savedInstanceState.getBoolean(mKEY_AUTO_SAVE, true);
-        mIsMidGame= savedInstanceState.getBoolean(mKEY_IS_MID_GAME, true);
-        updateBoardButtons();
+        mIsMidGame = savedInstanceState.getBoolean(mKEY_IS_MID_GAME, true);
+        updateBoardButtonsAndScoreTextViews();
     }
+
+    //until here
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,20 +141,17 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-//        setupButtonListeners();
-
-
         setupDrawables();
         mKEY_IS_MID_GAME = getString(R.string.is_mid_game);
         mKEY_AUTO_SAVE = getString(R.string.auto_save_key);
         turnBar = findViewById(R.id.turn);
         userScore = findViewById(R.id.userScore);
         compScore = findViewById(R.id.compScore);
-//        chooseColor(); //delete this one once startNewGame() works
         startNewGame(savedInstanceState);
 
     }
 
+    //Sets up board pieces
     private void setupDrawables() {
         WHITE_PIECE = getDrawable(R.drawable.white_piece);
         BLACK_PIECE = getDrawable(R.drawable.black_piece);
@@ -163,10 +165,9 @@ public class MainActivity extends AppCompatActivity {
                 Toast.LENGTH_LONG);
     }
 
-
-    private void updateBoardButtons() {
+    //Updates the displayed Othello board and the score text views
+    private void updateBoardButtonsAndScoreTextViews() {
         int[][] board = mGame2.getBoard();
-        //use reg for loops, need to compare the index against a parallel array of ids
         for (int row = 0; row <= 7; row++) {
             for (int col = 0; col <= 7; col++) {
                 if (board[row][col] == 1) {
@@ -180,84 +181,49 @@ public class MainActivity extends AppCompatActivity {
                     space.setImageDrawable(BLANK_SPACE);
                 }
             }
-//            turnDelay();
         }
-        score1 = ""+mGame2.getScore()[0];
-        score2 = ""+mGame2.getScore()[1];
+        score1 = "" + mGame2.getScore()[0];
+        score2 = "" + mGame2.getScore()[1];
         String userScoreMsg = getString(R.string.your_score) + score1;
         String compScoreMsg = getString(R.string.comp_score) + score2;
-//        userScore.setText((R.string.your_score) + (mGame2.getScore()[0]));
         userScore.setText(userScoreMsg);
         compScore.setText(compScoreMsg);
-
-//        turnDelay();
-//        compScore.setText((R.string.comp_score) + (mGame2.getScore()[1]));
     }
 
 
     private void startNewGame(Bundle savedInstanceState) {
         mGame2 = new OthelloConfig();
-        updateBoardButtons();
+        updateBoardButtonsAndScoreTextViews();
         setupButtonListeners();
-        //chooseColor(savedInstanceState);
         setupToast();
         mColorNotSelected = true;
     }
 
-//    private static void turnDelay() {
-//        try {
-//            Thread.sleep(125);
-//        } catch (InterruptedException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-
-
     private void chooseColor() {
-        //setupButtonListeners();
-//        if ( savedInstanceState!=null) {
-//            mGame2 = getGameFromJSON(savedInstanceState.getString(mKEY_GAME));
-//        }
-//        int scoreA = Integer.parseInt(score1);
-//        int scoreB = Integer.parseInt(score2);
-//        (scoreA!=2&&scoreB!=2)
+        final String[] colors = {"White", "Black"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Select your color:");
+        builder.setItems(colors, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int color) {
+                if ("White".equals(colors[color])) {
+                    mGame2.setTurn(1);
+                    mGame2.changeTurn(mGame2.getCompTurn());
+                    setTurnBarToCompTurn();
+                    compMove();
 
-//        if (!mIsMidGame){
-        //if (savedInstanceState==null) {
+                } else if ("Black".equals(colors[color])) {
+                    mGame2.setTurn(2);
+                    mGame2.changeTurn(mGame2.getUserTurn());
+                    setTurnBarToUserTurn();
 
-            final String[] colors = {"White", "Black"};
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Select your color:");
-            builder.setItems(colors, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int color) {
-                    if ("White".equals(colors[color])) {
-                        mGame2.setTurn(1);
-                        mGame2.changeTurn(mGame2.getCompTurn());
-                        setTurnBarToCompTurn();
-                        compMove();
-
-                    } else if ("Black".equals(colors[color])) {
-                        mGame2.setTurn(2);
-                        mGame2.changeTurn(mGame2.getUserTurn());
-                        setTurnBarToUserTurn();
-
-                    }
                 }
-            });
-            builder.show();
-
-//        if (mGame2.getCompTurn()==mGame2.getTurn()){
-//        if(mGame2.getCompTurn()==2) {
-//            call setComputerTurn();
-
-//            compMove();
-//        }
-        //}
-//        }
+            }
+        });
+        builder.show();
     }
 
-
+    //Sets up Othello board, which is made up of buttons
     private void setupButtonListeners() {
 
         binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.A1.setOnClickListener(view -> userAndCompMoves("A", 1));
@@ -340,6 +306,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
     }
 
+    //The following 2 methods sets up the menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -352,7 +319,7 @@ public class MainActivity extends AppCompatActivity {
         if (itemId == R.id.action_new_game) {
             startNewGame(null);
             return true;
-        } else if(itemId == R.id.action_settings) {
+        } else if (itemId == R.id.action_settings) {
             showSettings();
             return true;
         } else if (itemId == R.id.action_rules) {
@@ -362,17 +329,16 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    //gets 2 values based on button pressed
+    //Allows the user to move, and the computer's move method is called within
     private void userAndCompMoves(String row, int col) {
 
         int scoreA = Integer.parseInt(score1);
         int scoreB = Integer.parseInt(score2);
 
-        if (scoreA==2 && scoreB==2 && mColorNotSelected){
+        if (scoreA == 2 && scoreB == 2 && mColorNotSelected) {
             chooseColor();
             mColorNotSelected = false;
-        }
-        else {
+        } else {
             if (mGame2.getUserTurn() == mGame2.getTurn()) {
                 int y = col - 1;
                 int x;
@@ -405,33 +371,16 @@ public class MainActivity extends AppCompatActivity {
                         x = -1;
                 }
 
-
-//            boolean invalidMove = false;
-                //don't use while loop, just display invalid move, then exit the method, wait for next listener
-                //        if (!invalidMove) {
-                //
-                //        }
-
                 if (!mGame2.userMove(x, y)) {
-                    //                invalidMove = true;
                     invalidToast.show();
 
                 } else {
-                    //                Toast.makeText(this, "Invalid move!",
-                    //                        Toast.LENGTH_SHORT).show();
-                    //                invalidToast.show();
-                    //            }
-                    //        }
-                    updateBoardButtons();
-                    if(!checkIfGameOver()){
+                    updateBoardButtonsAndScoreTextViews();
+                    if (!checkIfGameOver()) {
                         mGame2.changeTurn(mGame2.getCompTurn());
                         setTurnBarToCompTurn();
-//                turnDelay();
-
                         compMove();
                     }
-                    //        mGame2.changeTurn(mGame2.getUserTurn());
-
                 }
             } else {
                 notTurnToast.show();
@@ -439,37 +388,21 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //The computer's move method
     private void compMove() {
-//        mGame2.changeTurn(mGame2.getCompTurn());
-
         final Handler handler = new Handler(Looper.getMainLooper());
         handler.postDelayed(() -> {
             mGame2.compMove();
-            updateBoardButtons();
-
-            if(!checkIfGameOver()){
+            updateBoardButtonsAndScoreTextViews();
+            if (!checkIfGameOver()) {
                 mGame2.changeTurn(mGame2.getUserTurn());
 
                 setTurnBarToUserTurn();
             }
-//            checkIfGameOver();
-
-
         }, 1000);
-
-//        Handler delayCompMove = new Handler();
-//        delayCompMove.postDelayed(mGame2.compMove(),1000);
-//        mGame2.compMove();
-
-//        updateBoardButtons();
-//
-//        checkIfGameOver();
-//        mGame2.changeTurn(mGame2.getUserTurn());
-//
-//        setTurnBarToUserTurn();
-//        turnDelay();
     }
 
+    //The following 2 methods change the turn information text view
     private void setTurnBarToUserTurn() {
         turnBar.setText(R.string.your_turn);
     }
@@ -483,13 +416,10 @@ public class MainActivity extends AppCompatActivity {
             String winner;
             int[] score = mGame2.getScore();
             if (score[0] > score[1]) {
-//                OthelloGame.userWins++;
                 winner = "User";
             } else if (score[1] > score[0]) {
-//                OthelloGame.compWins++;
                 winner = "Computer";
             } else {
-//                OthelloGame.ties++;
                 winner = "Tie! No one";
             }
 
@@ -501,24 +431,20 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(DialogInterface dialog, int option) {
                     if ("Yes".equals(options[option])) {
                         startNewGame(null);
-                    }else if ("No".equals(options[option])) {
-                        updateBoardButtons();
+                    } else if ("No".equals(options[option])) {
+                        updateBoardButtonsAndScoreTextViews();
                     }
                 }
             });
             builder.show();
             return true;
-        }else {
+        } else {
             return false;
+        }
     }
-    }
 
-
-
-
-    //if over, update statistics (if time)
-
-    private void showRules() {
+    //The following displays a dialog of the Othello Rules
+        private void showRules() {
         showInfoDialog(MainActivity.this, "Othello Rules",
                 "Welcome to Othello!\n\n" +
                         "Othello is a two player game.\n" +
@@ -535,7 +461,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
+    //The following 2 methods allow the Settings Activity to open up and work
     private void showSettings() {
         Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
         settingsLauncher.launch(intent);
@@ -544,7 +470,6 @@ public class MainActivity extends AppCompatActivity {
     ActivityResultLauncher<Intent> settingsLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> restoreOrSetFromPreferences_AllAppAndGameSettings());
-
 
 
 }

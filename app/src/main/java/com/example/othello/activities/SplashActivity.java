@@ -18,9 +18,6 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         PreferenceManager.setDefaultValues(this,R.xml.root_preferences,false);
         Utils.setNightModeOnOffFromPreferenceValue(getApplicationContext(),getString(R.string.night_mode_key));
-
-
-
         startActivity (new Intent(getApplicationContext (), MainActivity.class));
         finish ();
     }
