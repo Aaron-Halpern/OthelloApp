@@ -158,11 +158,17 @@ public class MainActivity extends AppCompatActivity {
         BLANK_SPACE = getDrawable(R.drawable.box);
     }
 
-    private void setupToast() {
-        invalidToast = Toast.makeText(this, "Invalid move!",
-                Toast.LENGTH_LONG);
-        notTurnToast = Toast.makeText(this, "Not your move!",
-                Toast.LENGTH_LONG);
+
+
+
+
+
+    private void startNewGame(Bundle savedInstanceState) {
+        mGame2 = new OthelloConfig();
+        updateBoardButtonsAndScoreTextViews();
+        setupButtonListeners();
+        setupToast();
+        mColorNotSelected = true;
     }
 
     //Updates the displayed Othello board and the score text views
@@ -188,39 +194,6 @@ public class MainActivity extends AppCompatActivity {
         String compScoreMsg = getString(R.string.comp_score) + score2;
         userScore.setText(userScoreMsg);
         compScore.setText(compScoreMsg);
-    }
-
-
-    private void startNewGame(Bundle savedInstanceState) {
-        mGame2 = new OthelloConfig();
-        updateBoardButtonsAndScoreTextViews();
-        setupButtonListeners();
-        setupToast();
-        mColorNotSelected = true;
-    }
-
-    private void chooseColor() {
-        final String[] colors = {"White", "Black"};
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Select your color:");
-        builder.setItems(colors, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int color) {
-                if ("White".equals(colors[color])) {
-                    mGame2.setTurn(1);
-                    mGame2.changeTurn(mGame2.getCompTurn());
-                    setTurnBarToCompTurn();
-                    compMove();
-
-                } else if ("Black".equals(colors[color])) {
-                    mGame2.setTurn(2);
-                    mGame2.changeTurn(mGame2.getUserTurn());
-                    setTurnBarToUserTurn();
-
-                }
-            }
-        });
-        builder.show();
     }
 
     //Sets up Othello board, which is made up of buttons
@@ -297,36 +270,13 @@ public class MainActivity extends AppCompatActivity {
         binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.H6.setOnClickListener(view -> userAndCompMoves("H", 6));
         binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.H7.setOnClickListener(view -> userAndCompMoves("H", 7));
         binding.contentMain.mainIncludeAllContentItems.mainIncludeGameBoard.H8.setOnClickListener(view -> userAndCompMoves("H", 8));
-
-
     }
 
-    private void setContentView() {
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-    }
-
-    //The following 2 methods sets up the menu
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int itemId = item.getItemId();
-        if (itemId == R.id.action_new_game) {
-            startNewGame(null);
-            return true;
-        } else if (itemId == R.id.action_settings) {
-            showSettings();
-            return true;
-        } else if (itemId == R.id.action_rules) {
-            showRules();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+    private void setupToast() {
+        invalidToast = Toast.makeText(this, "Invalid move!",
+                Toast.LENGTH_LONG);
+        notTurnToast = Toast.makeText(this, "Not your move!",
+                Toast.LENGTH_LONG);
     }
 
     //Allows the user to move, and the computer's move method is called within
@@ -402,6 +352,30 @@ public class MainActivity extends AppCompatActivity {
         }, 1000);
     }
 
+    private void chooseColor() {
+        final String[] colors = {"White", "Black"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Select your color:");
+        builder.setItems(colors, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int color) {
+                if ("White".equals(colors[color])) {
+                    mGame2.setTurn(1);
+                    mGame2.changeTurn(mGame2.getCompTurn());
+                    setTurnBarToCompTurn();
+                    compMove();
+
+                } else if ("Black".equals(colors[color])) {
+                    mGame2.setTurn(2);
+                    mGame2.changeTurn(mGame2.getUserTurn());
+                    setTurnBarToUserTurn();
+
+                }
+            }
+        });
+        builder.show();
+    }
+
     //The following 2 methods change the turn information text view
     private void setTurnBarToUserTurn() {
         turnBar.setText(R.string.your_turn);
@@ -441,6 +415,35 @@ public class MainActivity extends AppCompatActivity {
         } else {
             return false;
         }
+    }
+
+
+    private void setContentView() {
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+    }
+
+    //The following 2 methods sets up the menu
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        if (itemId == R.id.action_new_game) {
+            startNewGame(null);
+            return true;
+        } else if (itemId == R.id.action_settings) {
+            showSettings();
+            return true;
+        } else if (itemId == R.id.action_rules) {
+            showRules();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     //The following displays a dialog of the Othello Rules
