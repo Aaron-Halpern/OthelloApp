@@ -24,7 +24,6 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.view.View;
 
 import com.example.othello.databinding.ActivityMainBinding;
 
@@ -41,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean mUseAutoSave;
     private boolean mIsMidGame;
     private boolean mIsNightMode;
+    private boolean mColorNotSelected;
 
     private final String mKEY_GAME = "GAME";
     private String mKEY_AUTO_SAVE;
@@ -198,8 +198,10 @@ public class MainActivity extends AppCompatActivity {
     private void startNewGame(Bundle savedInstanceState) {
         mGame2 = new OthelloConfig();
         updateBoardButtons();
-        chooseColor(savedInstanceState);
+        setupButtonListeners();
+        //chooseColor(savedInstanceState);
         setupToast();
+        mColorNotSelected = true;
     }
 
 //    private static void turnDelay() {
@@ -211,8 +213,8 @@ public class MainActivity extends AppCompatActivity {
 //    }
 
 
-    private void chooseColor(Bundle savedInstanceState) {
-        setupButtonListeners();
+    private void chooseColor() {
+        //setupButtonListeners();
 //        if ( savedInstanceState!=null) {
 //            mGame2 = getGameFromJSON(savedInstanceState.getString(mKEY_GAME));
 //        }
@@ -221,7 +223,7 @@ public class MainActivity extends AppCompatActivity {
 //        (scoreA!=2&&scoreB!=2)
 
 //        if (!mIsMidGame){
-        if (savedInstanceState==null) {
+        //if (savedInstanceState==null) {
 
             final String[] colors = {"White", "Black"};
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -251,7 +253,7 @@ public class MainActivity extends AppCompatActivity {
 
 //            compMove();
 //        }
-        }
+        //}
 //        }
     }
 
@@ -365,69 +367,73 @@ public class MainActivity extends AppCompatActivity {
 
         int scoreA = Integer.parseInt(score1);
         int scoreB = Integer.parseInt(score2);
-        if (scoreA==2&&scoreB==2){
 
+        if (scoreA==2 && scoreB==2 && mColorNotSelected){
+            chooseColor();
+            mColorNotSelected = false;
         }
-        if (mGame2.getUserTurn() == mGame2.getTurn()) {
-            int y = col - 1;
-            int x;
-            switch (row) {
-                case "A":
-                    x = 0;
-                    break;
-                case "B":
-                    x = 1;
-                    break;
-                case "C":
-                    x = 2;
-                    break;
-                case "D":
-                    x = 3;
-                    break;
-                case "E":
-                    x = 4;
-                    break;
-                case "F":
-                    x = 5;
-                    break;
-                case "G":
-                    x = 6;
-                    break;
-                case "H":
-                    x = 7;
-                    break;
-                default:
-                    x = -1;
-            }
+        else {
+            if (mGame2.getUserTurn() == mGame2.getTurn()) {
+                int y = col - 1;
+                int x;
+                switch (row) {
+                    case "A":
+                        x = 0;
+                        break;
+                    case "B":
+                        x = 1;
+                        break;
+                    case "C":
+                        x = 2;
+                        break;
+                    case "D":
+                        x = 3;
+                        break;
+                    case "E":
+                        x = 4;
+                        break;
+                    case "F":
+                        x = 5;
+                        break;
+                    case "G":
+                        x = 6;
+                        break;
+                    case "H":
+                        x = 7;
+                        break;
+                    default:
+                        x = -1;
+                }
 
 
 //            boolean invalidMove = false;
-            //don't use while loop, just display invalid move, then exit the method, wait for next listener
-            //        if (!invalidMove) {
-            //
-            //        }
-
-            if (!mGame2.userMove(x, y)) {
-                //                invalidMove = true;
-                invalidToast.show();
-
-            } else {
-                //                Toast.makeText(this, "Invalid move!",
-                //                        Toast.LENGTH_SHORT).show();
-                //                invalidToast.show();
-                //            }
+                //don't use while loop, just display invalid move, then exit the method, wait for next listener
+                //        if (!invalidMove) {
+                //
                 //        }
-                updateBoardButtons();
-                checkIfGameOver();
-                //        mGame2.changeTurn(mGame2.getUserTurn());
-                mGame2.changeTurn(mGame2.getCompTurn());
-                setTurnBarToCompTurn();
+
+                if (!mGame2.userMove(x, y)) {
+                    //                invalidMove = true;
+                    invalidToast.show();
+
+                } else {
+                    //                Toast.makeText(this, "Invalid move!",
+                    //                        Toast.LENGTH_SHORT).show();
+                    //                invalidToast.show();
+                    //            }
+                    //        }
+                    updateBoardButtons();
+                    checkIfGameOver();
+                    //        mGame2.changeTurn(mGame2.getUserTurn());
+                    mGame2.changeTurn(mGame2.getCompTurn());
+                    setTurnBarToCompTurn();
 //                turnDelay();
 
-                compMove();
+                    compMove();
+                }
+            } else {
+                notTurnToast.show();
             }
-        } else {
-            notTurnToast.show();
         }
     }
 
